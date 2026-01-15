@@ -6,7 +6,7 @@ class SharedQueueStorage {
     static let shared = SharedQueueStorage()
     
     // IMPORTANT: This must match the App Group ID in both targets
-    static let appGroupID = "group.com.kunalm.kharcha"
+    static let appGroupID = "group.com.kunalm.expenseginie"
     
     private let queueFileName = "pending_sms_queue.json"
     

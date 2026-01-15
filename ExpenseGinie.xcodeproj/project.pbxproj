@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1000001 /* KharchaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* KharchaApp.swift */; };
+		A1000001 /* ExpenseGinieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* ExpenseGinieApp.swift */; };
 		A1000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000002 /* ContentView.swift */; };
 		A1000003 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000003 /* Expense.swift */; };
 		A1000004 /* SMSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000004 /* SMSParser.swift */; };
@@ -30,7 +30,7 @@
 		A1000023 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* SplashScreenView.swift */; };
 		B1000001 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2000001 /* ShareViewController.swift */; };
 		B1000002 /* SharedQueueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2000002 /* SharedQueueStorage.swift */; };
-		B1000003 /* KharchaShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B3000001 /* KharchaShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B1000003 /* ExpenseGinieShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B3000001 /* ExpenseGinieShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +39,7 @@
 			containerPortal = A0000001 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B6000001;
-			remoteInfo = KharchaShare;
+			remoteInfo = ExpenseGinieShare;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,7 +50,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B1000003 /* KharchaShare.appex in Embed Foundation Extensions */,
+				B1000003 /* ExpenseGinieShare.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,7 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A2000001 /* KharchaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KharchaApp.swift; sourceTree = "<group>"; };
+		A2000001 /* ExpenseGinieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseGinieApp.swift; sourceTree = "<group>"; };
 		A2000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A2000003 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		A2000004 /* SMSParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSParser.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		A2000012 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		A2000013 /* SharedQueueStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedQueueStorage.swift; sourceTree = "<group>"; };
 		A2000014 /* QueueReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueReviewView.swift; sourceTree = "<group>"; };
-		A2000015 /* Kharcha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kharcha.entitlements; sourceTree = "<group>"; };
+		A2000015 /* ExpenseGinie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExpenseGinie.entitlements; sourceTree = "<group>"; };
 		A2000016 /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
 		A2000017 /* BillersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillersView.swift; sourceTree = "<group>"; };
 		A2000018 /* DataManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagementView.swift; sourceTree = "<group>"; };
@@ -80,12 +80,12 @@
 		A2000022 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		A2000023 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		A2000024 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		A3000001 /* Kharcha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kharcha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3000001 /* ExpenseGinie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseGinie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2000001 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B2000002 /* SharedQueueStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedQueueStorage.swift; sourceTree = "<group>"; };
 		B2000003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B2000004 /* KharchaShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KharchaShare.entitlements; sourceTree = "<group>"; };
-		B3000001 /* KharchaShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KharchaShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2000004 /* ExpenseGinieShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExpenseGinieShare.entitlements; sourceTree = "<group>"; };
+		B3000001 /* ExpenseGinieShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ExpenseGinieShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,17 +109,17 @@
 		A5000001 = {
 			isa = PBXGroup;
 			children = (
-				A5000002 /* Kharcha */,
-				B5000002 /* KharchaShare */,
+				A5000002 /* ExpenseGinie */,
+				B5000002 /* ExpenseGinieShare */,
 				A5000006 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A5000002 /* Kharcha */ = {
+		A5000002 /* ExpenseGinie */ = {
 			isa = PBXGroup;
 			children = (
-				A2000015 /* Kharcha.entitlements */,
-				A2000001 /* KharchaApp.swift */,
+				A2000015 /* ExpenseGinie.entitlements */,
+				A2000001 /* ExpenseGinieApp.swift */,
 				A2000002 /* ContentView.swift */,
 				A2000008 /* Theme.swift */,
 				A5000003 /* Models */,
@@ -129,7 +129,7 @@
 				A5000005 /* Resources */,
 				A2000007 /* Assets.xcassets */,
 			);
-			path = Kharcha;
+			path = ExpenseGinie;
 			sourceTree = "<group>";
 		};
 		A5000008 /* Intents */ = {
@@ -170,8 +170,8 @@
 		A5000006 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A3000001 /* Kharcha.app */,
-				B3000001 /* KharchaShare.appex */,
+				A3000001 /* ExpenseGinie.app */,
+				B3000001 /* ExpenseGinieShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,23 +193,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B5000002 /* KharchaShare */ = {
+		B5000002 /* ExpenseGinieShare */ = {
 			isa = PBXGroup;
 			children = (
-				B2000004 /* KharchaShare.entitlements */,
+				B2000004 /* ExpenseGinieShare.entitlements */,
 				B2000001 /* ShareViewController.swift */,
 				B2000002 /* SharedQueueStorage.swift */,
 				B2000003 /* Info.plist */,
 			);
-			path = KharchaShare;
+			path = ExpenseGinieShare;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A6000001 /* Kharcha */ = {
+		A6000001 /* ExpenseGinie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A8000003 /* Build configuration list for PBXNativeTarget "Kharcha" */;
+			buildConfigurationList = A8000003 /* Build configuration list for PBXNativeTarget "ExpenseGinie" */;
 			buildPhases = (
 				A7000001 /* Sources */,
 				A4000001 /* Frameworks */,
@@ -221,14 +221,14 @@
 			dependencies = (
 				B4000003 /* PBXTargetDependency */,
 			);
-			name = Kharcha;
-			productName = Kharcha;
-			productReference = A3000001 /* Kharcha.app */;
+			name = ExpenseGinie;
+			productName = ExpenseGinie;
+			productReference = A3000001 /* ExpenseGinie.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B6000001 /* KharchaShare */ = {
+		B6000001 /* ExpenseGinieShare */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B8000001 /* Build configuration list for PBXNativeTarget "KharchaShare" */;
+			buildConfigurationList = B8000001 /* Build configuration list for PBXNativeTarget "ExpenseGinieShare" */;
 			buildPhases = (
 				B7000001 /* Sources */,
 				B4000002 /* Frameworks */,
@@ -238,9 +238,9 @@
 			);
 			dependencies = (
 			);
-			name = KharchaShare;
-			productName = KharchaShare;
-			productReference = B3000001 /* KharchaShare.appex */;
+			name = ExpenseGinieShare;
+			productName = ExpenseGinieShare;
+			productReference = B3000001 /* ExpenseGinieShare.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -261,7 +261,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A8000001 /* Build configuration list for PBXProject "Kharcha" */;
+			buildConfigurationList = A8000001 /* Build configuration list for PBXProject "ExpenseGinie" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -274,8 +274,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A6000001 /* Kharcha */,
-				B6000001 /* KharchaShare */,
+				A6000001 /* ExpenseGinie */,
+				B6000001 /* ExpenseGinieShare */,
 			);
 		};
 /* End PBXProject section */
@@ -303,7 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1000001 /* KharchaApp.swift in Sources */,
+				A1000001 /* ExpenseGinieApp.swift in Sources */,
 				A1000002 /* ContentView.swift in Sources */,
 				A1000003 /* Expense.swift in Sources */,
 				A1000004 /* SMSParser.swift in Sources */,
@@ -340,7 +340,7 @@
 /* Begin PBXTargetDependency section */
 		B4000003 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B6000001 /* KharchaShare */;
+			target = B6000001 /* ExpenseGinieShare */;
 			targetProxy = B4000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -471,12 +471,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Kharcha/Kharcha.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ExpenseGinie/ExpenseGinie.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98T8QZ94MV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Expense Ginie";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -487,7 +488,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.kharcha;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.expenseginie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -501,12 +502,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Kharcha/Kharcha.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ExpenseGinie/ExpenseGinie.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98T8QZ94MV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Expense Ginie";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -517,7 +519,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.kharcha;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.expenseginie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -528,13 +530,13 @@
 		B9000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = KharchaShare/KharchaShare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ExpenseGinieShare/ExpenseGinieShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98T8QZ94MV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = KharchaShare/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = KharchaShare;
+				INFOPLIST_FILE = ExpenseGinieShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Expense Ginie";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -542,7 +544,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.kharcha.share;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.expenseginie.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -554,13 +556,13 @@
 		B9000002 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = KharchaShare/KharchaShare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ExpenseGinieShare/ExpenseGinieShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98T8QZ94MV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = KharchaShare/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = KharchaShare;
+				INFOPLIST_FILE = ExpenseGinieShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Expense Ginie";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -568,7 +570,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.kharcha.share;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kunalm.expenseginie.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -580,7 +582,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A8000001 /* Build configuration list for PBXProject "Kharcha" */ = {
+		A8000001 /* Build configuration list for PBXProject "ExpenseGinie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A9000001 /* Debug */,
@@ -589,7 +591,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A8000003 /* Build configuration list for PBXNativeTarget "Kharcha" */ = {
+		A8000003 /* Build configuration list for PBXNativeTarget "ExpenseGinie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A9000003 /* Debug */,
@@ -598,7 +600,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8000001 /* Build configuration list for PBXNativeTarget "KharchaShare" */ = {
+		B8000001 /* Build configuration list for PBXNativeTarget "ExpenseGinieShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9000001 /* Debug */,

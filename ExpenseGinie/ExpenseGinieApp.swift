@@ -3,14 +3,14 @@ import SwiftData
 import AppIntents
 
 @main
-struct KharchaApp: App {
+struct ExpenseGinieApp: App {
     @StateObject private var themeSettings = ThemeSettings.shared
     
     let modelContainer: ModelContainer
     
     init() {
         // Force Siri to update shortcuts on app launch
-        KharchaShortcuts.updateAppShortcutParameters()
+        ExpenseGinieShortcuts.updateAppShortcutParameters()
         
         // Setup SwiftData container
         do {

@@ -39,8 +39,8 @@ struct ExpenseCategoryQuery: EntityQuery {
 
 // MARK: - Add Expense Intent
 struct AddExpenseIntent: AppIntent {
-    static var title: LocalizedStringResource = "Add Expense to Kharcha"
-    static var description = IntentDescription("Add a new expense to your Kharcha tracker")
+    static var title: LocalizedStringResource = "Add Expense to Expense Ginie"
+    static var description = IntentDescription("Add a new expense to Expense Ginie")
     
     // Required: Amount
     @Parameter(title: "Amount", description: "The expense amount in rupees")
@@ -140,7 +140,7 @@ struct AddExpenseIntent: AppIntent {
     }
     
     static var parameterSummary: some ParameterSummary {
-        Summary("Add \(\.$amount) rupees for \(\.$biller) to Kharcha") {
+        Summary("Add \(\.$amount) rupees for \(\.$biller) to Expense Ginie") {
             \.$category
             \.$date
         }
@@ -188,14 +188,14 @@ struct AddExpenseIntent: AppIntent {
         formatter.maximumFractionDigits = 0
         let formattedAmount = formatter.string(from: NSNumber(value: expenseAmount)) ?? "₹\(Int(expenseAmount))"
         
-        return .result(dialog: "Added \(formattedAmount) to \(finalCategory). Review in Kharcha.")
+        return .result(dialog: "Added \(formattedAmount) to \(finalCategory). Review in Expense Ginie.")
     }
 }
 
 // MARK: - App Shortcuts
-struct KharchaShortcuts: AppShortcutsProvider {
+struct ExpenseGinieShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
-        // Shortcut with category parameter - "Add expense to Kharcha for Food"
+        // Shortcut with category parameter - "Add expense to Expense Ginie for Food"
         AppShortcut(
             intent: AddExpenseIntent(),
             phrases: [

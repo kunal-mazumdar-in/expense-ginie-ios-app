@@ -80,7 +80,7 @@ class ShareViewController: UIViewController {
         checkmark.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
         let label = UILabel()
-        label.text = "Added to Kharcha"
+        label.text = "Added to Expense Ginie"
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         
@@ -115,7 +115,7 @@ class ShareViewController: UIViewController {
         if success {
             extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         } else {
-            let error = NSError(domain: "com.kunalm.kharcha.share", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to process shared content"])
+            let error = NSError(domain: "com.kunalm.expenseginie.share", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to process shared content"])
             extensionContext?.cancelRequest(withError: error)
         }
     }
