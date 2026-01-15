@@ -26,6 +26,9 @@
 		A1000018 /* AddExpenseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000019 /* AddExpenseIntent.swift */; };
 		A1000019 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000020 /* MainTabView.swift */; };
 		A1000020 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000021 /* HomeView.swift */; };
+		A1000021 /* BudgetStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000022 /* BudgetStorage.swift */; };
+		A1000022 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000023 /* BudgetView.swift */; };
+		A1000023 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* SplashScreenView.swift */; };
 		B1000001 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2000001 /* ShareViewController.swift */; };
 		B1000002 /* SharedQueueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2000002 /* SharedQueueStorage.swift */; };
 		B1000003 /* KharchaShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B3000001 /* KharchaShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -76,6 +79,9 @@
 		A2000019 /* AddExpenseIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseIntent.swift; sourceTree = "<group>"; };
 		A2000020 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		A2000021 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A2000022 /* BudgetStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetStorage.swift; sourceTree = "<group>"; };
+		A2000023 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
+		A2000024 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		A3000001 /* Kharcha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kharcha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2000001 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B2000002 /* SharedQueueStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedQueueStorage.swift; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 				A2000005 /* ExpenseStorage.swift */,
 				A2000009 /* MappingStorage.swift */,
 				A2000013 /* SharedQueueStorage.swift */,
+				A2000022 /* BudgetStorage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -183,6 +190,8 @@
 				A2000016 /* AdminView.swift */,
 				A2000017 /* BillersView.swift */,
 				A2000018 /* DataManagementView.swift */,
+				A2000023 /* BudgetView.swift */,
+				A2000024 /* SplashScreenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +324,9 @@
 				A1000018 /* AddExpenseIntent.swift in Sources */,
 				A1000019 /* MainTabView.swift in Sources */,
 				A1000020 /* HomeView.swift in Sources */,
+				A1000021 /* BudgetStorage.swift in Sources */,
+				A1000022 /* BudgetView.swift in Sources */,
+				A1000023 /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

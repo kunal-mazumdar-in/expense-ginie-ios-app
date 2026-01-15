@@ -56,6 +56,7 @@ struct BillersView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollIndicators(.hidden)
         .searchable(text: $searchText, prompt: "Search billers")
         .navigationTitle("Billers")
         .toolbar {

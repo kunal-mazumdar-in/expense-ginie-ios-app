@@ -279,6 +279,7 @@ struct ContentView: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .tint(tintColor)
             .toolbar {
@@ -375,9 +376,29 @@ struct StatItem: View {
 struct CategoryRow: View {
     let item: CategoryTotal
     let grandTotal: Double
+    var budgetStorage: BudgetStorage? = nil
+    var onBudgetTap: (() -> Void)? = nil
+    var showBudgetIndicator: Bool = true
+    
+    @State private var showingBudgetTooltip = false
     
     private var percentage: Double {
         grandTotal > 0 ? (item.total / grandTotal) * 100 : 0
+    }
+    
+    private var budgetStatus: BudgetStatus {
+        budgetStorage?.budgetStatus(category: item.category, spent: item.total) ?? .noBudget
+    }
+    
+    private var budgetTooltipMessage: String {
+        switch budgetStatus {
+        case .noBudget:
+            return "No budget set"
+        case .withinBudget(let remaining):
+            return "✓ \(remaining.currencyFormatted) left"
+        case .exceeded(let amount):
+            return "↑ \(amount.currencyFormatted) over"
+        }
     }
     
     var body: some View {
@@ -398,6 +419,26 @@ struct CategoryRow: View {
             }
             
             Spacer()
+            
+            // Budget indicator with tooltip (hidden for "Till Date" filter)
+            if let _ = budgetStorage, !budgetStatus.isNoBudget, showBudgetIndicator {
+                Image(systemName: budgetStatus.isExceeded ? "arrow.up.circle.fill" : "checkmark.circle.fill")
+                    .font(.body)
+                    .foregroundStyle(budgetStatus.isExceeded ? .red : .green)
+                    .onTapGesture {
+                        showingBudgetTooltip.toggle()
+                    }
+                    .popover(isPresented: $showingBudgetTooltip, arrowEdge: .bottom) {
+                        Text(budgetTooltipMessage)
+                            .font(.caption2)
+                            .fontWeight(.medium)
+                            .foregroundStyle(budgetStatus.isExceeded ? .red : .green)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .fixedSize()
+                            .presentationCompactAdaptation(.popover)
+                    }
+            }
             
             Text(item.total.currencyFormatted)
                 .font(.headline)

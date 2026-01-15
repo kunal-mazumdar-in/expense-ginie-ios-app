@@ -95,6 +95,7 @@ struct CategoryDetailView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollIndicators(.hidden)
         .navigationTitle(category)
         .navigationBarTitleDisplayMode(.inline)
         .alert("Delete Expense?", isPresented: $showingDeleteConfirmation) {

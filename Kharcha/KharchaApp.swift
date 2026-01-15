@@ -12,7 +12,7 @@ struct KharchaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            SplashScreenView()
                 .tint(themeSettings.accentColor.color)
                 .preferredColorScheme(themeSettings.isDarkMode ? .dark : nil)
                 .environmentObject(themeSettings)

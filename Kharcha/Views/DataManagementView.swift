@@ -27,6 +27,7 @@ struct DataManagementView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollIndicators(.hidden)
         .navigationTitle("Data")
         .tint(tintColor)
         .alert("Clear All Expenses?", isPresented: $showingClearConfirmation) {

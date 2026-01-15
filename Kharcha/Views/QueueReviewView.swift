@@ -76,6 +76,7 @@ struct ReviewContentView: View {
                     }
                 }
                 .listStyle(.insetGrouped)
+                .scrollIndicators(.hidden)
             }
         }
         .navigationTitle("Review")
@@ -559,6 +560,7 @@ struct QueueReviewView: View {
                         }
                     }
                     .listStyle(.insetGrouped)
+                    .scrollIndicators(.hidden)
                 }
             }
             .navigationTitle("Review")

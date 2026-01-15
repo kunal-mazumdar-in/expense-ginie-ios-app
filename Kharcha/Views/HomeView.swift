@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var expenseStorage: ExpenseStorage
     @ObservedObject var mappingStorage: MappingStorage
+    @ObservedObject var budgetStorage: BudgetStorage
     @EnvironmentObject var themeSettings: ThemeSettings
     
     @State private var showingInput = false
@@ -17,6 +18,17 @@ struct HomeView: View {
     private var tintColor: Color {
         themeSettings.accentColor.color
     }
+    
+    // Header gradient colors
+    private static let headerGradient = LinearGradient(
+        colors: [
+            Color(red: 0/255, green: 111/255, blue: 161/255),
+            Color(red: 0/255, green: 188/255, blue: 212/255),
+            Color(red: 0/255, green: 150/255, blue: 136/255)
+        ],
+        startPoint: .leading,
+        endPoint: .trailing
+    )
     
     // Get all unique months from expenses
     private var availableMonths: [DateFilter] {
@@ -195,7 +207,12 @@ struct HomeView: View {
                                 expenseStorage: expenseStorage,
                                 dateFilter: selectedFilter
                             )) {
-                                CategoryRow(item: item, grandTotal: grandTotal)
+                                CategoryRow(
+                                    item: item,
+                                    grandTotal: grandTotal,
+                                    budgetStorage: budgetStorage,
+                                    showBudgetIndicator: selectedFilter != .allTime
+                                )
                             }
                         }
                     }
@@ -210,11 +227,12 @@ struct HomeView: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollIndicators(.hidden)
             .scrollContentBackground(.hidden)
             .background {
                 VStack(spacing: 0) {
-                    // Solid accent colored header - covers nav bar + just top of pie chart
-                    tintColor.opacity(0.6)
+                    // Gradient header - covers nav bar + just top of pie chart
+                    Self.headerGradient
                         .frame(height: 180)
                     
                     Color(.systemGroupedBackground)
@@ -230,6 +248,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .principal) {
                     Text("Expense Ginie")
                         .font(.headline)
+                        .foregroundColor(Color(.secondarySystemGroupedBackground))
                         .fontWeight(.semibold)
                 }
             }
@@ -277,7 +296,8 @@ struct HomeView: View {
 #Preview {
     HomeView(
         expenseStorage: ExpenseStorage(),
-        mappingStorage: MappingStorage.shared
+        mappingStorage: MappingStorage.shared,
+        budgetStorage: BudgetStorage.shared
     )
     .environmentObject(ThemeSettings.shared)
 }

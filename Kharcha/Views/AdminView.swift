@@ -90,8 +90,6 @@ struct AdminContentView: View {
             // About Section
             Section("About") {
                 LabeledContent("Version", value: "1.0.0")
-                
-                LabeledContent("Developer", value: "Kharcha Team")
             }
             
             // App Info
@@ -111,6 +109,7 @@ struct AdminContentView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollIndicators(.hidden)
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -229,6 +228,7 @@ struct AdminView: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollIndicators(.hidden)
             .navigationTitle("Settings")
             .tint(tintColor)
             .toolbar {
@@ -288,6 +288,7 @@ struct AccentColorPickerView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollIndicators(.hidden)
         .navigationTitle("Accent Color")
         .navigationBarTitleDisplayMode(.inline)
         .tint(themeSettings.accentColor.color)

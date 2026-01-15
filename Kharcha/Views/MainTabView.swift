@@ -3,6 +3,7 @@ import SwiftUI
 struct MainTabView: View {
     @StateObject private var expenseStorage = ExpenseStorage()
     @StateObject private var mappingStorage = MappingStorage.shared
+    @StateObject private var budgetStorage = BudgetStorage.shared
     @EnvironmentObject var themeSettings: ThemeSettings
     
     @State private var selectedTab = 0
@@ -19,7 +20,8 @@ struct MainTabView: View {
             // Home Tab
             HomeView(
                 expenseStorage: expenseStorage,
-                mappingStorage: mappingStorage
+                mappingStorage: mappingStorage,
+                budgetStorage: budgetStorage
             )
             .tabItem {
                 Label("Home", systemImage: "house.fill")
@@ -38,6 +40,13 @@ struct MainTabView: View {
             .tag(1)
             .badge(pendingCount > 0 ? pendingCount : 0)
             
+            // Budget Tab
+            BudgetTabView(budgetStorage: budgetStorage)
+            .tabItem {
+                Label("Budget", systemImage: "chart.bar.fill")
+            }
+            .tag(2)
+            
             // Settings Tab
             SettingsTabView(
                 mappingStorage: mappingStorage,
@@ -49,7 +58,7 @@ struct MainTabView: View {
             .tabItem {
                 Label("Settings", systemImage: "gearshape.fill")
             }
-            .tag(2)
+            .tag(3)
         }
         .onAppear {
             refreshPendingCount()
