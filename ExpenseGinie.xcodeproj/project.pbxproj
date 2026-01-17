@@ -29,6 +29,11 @@
 		A1000022 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000023 /* BudgetView.swift */; };
 		A1000023 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000024 /* SplashScreenView.swift */; };
 		A1000030 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030 /* PermissionsView.swift */; };
+		A1000031 /* PDFParserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031 /* PDFParserService.swift */; };
+		A1000032 /* PDFImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000032 /* PDFImportView.swift */; };
+		A1000034 /* BankStatementParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000034 /* BankStatementParser.swift */; };
+		A1000035 /* CreditCardStatementParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000035 /* CreditCardStatementParser.swift */; };
+		A1000033 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000033 /* ToastView.swift */; };
 		B1000001 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2000001 /* ShareViewController.swift */; };
 		B1000002 /* SharedQueueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2000002 /* SharedQueueStorage.swift */; };
 		B1000003 /* ExpenseGinieShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B3000001 /* ExpenseGinieShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -82,6 +87,11 @@
 		A2000023 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		A2000024 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		A2000030 /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		A2000031 /* PDFParserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFParserService.swift; sourceTree = "<group>"; };
+		A2000032 /* PDFImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFImportView.swift; sourceTree = "<group>"; };
+		A2000034 /* BankStatementParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankStatementParser.swift; sourceTree = "<group>"; };
+		A2000035 /* CreditCardStatementParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardStatementParser.swift; sourceTree = "<group>"; };
+		A2000033 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		A3000001 /* ExpenseGinie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseGinie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2000001 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B2000002 /* SharedQueueStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedQueueStorage.swift; sourceTree = "<group>"; };
@@ -158,6 +168,9 @@
 				A2000004 /* SMSParser.swift */,
 				A2000009 /* MappingStorage.swift */,
 				A2000013 /* SharedQueueStorage.swift */,
+				A2000031 /* PDFParserService.swift */,
+				A2000034 /* BankStatementParser.swift */,
+				A2000035 /* CreditCardStatementParser.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -192,6 +205,8 @@
 				A2000023 /* BudgetView.swift */,
 				A2000024 /* SplashScreenView.swift */,
 				A2000030 /* PermissionsView.swift */,
+				A2000032 /* PDFImportView.swift */,
+				A2000033 /* ToastView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -327,6 +342,11 @@
 				A1000023 /* SplashScreenView.swift in Sources */,
 				A1000024 /* BillerMapping.swift in Sources */,
 				A1000030 /* PermissionsView.swift in Sources */,
+				A1000031 /* PDFParserService.swift in Sources */,
+				A1000032 /* PDFImportView.swift in Sources */,
+				A1000033 /* ToastView.swift in Sources */,
+				A1000034 /* BankStatementParser.swift in Sources */,
+				A1000035 /* CreditCardStatementParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

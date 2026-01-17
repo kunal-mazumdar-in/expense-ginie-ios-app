@@ -9,6 +9,7 @@ class SharedQueueStorage {
     
     private let queueFileName = "pending_sms_queue.json"
     private let siriQueueFileName = "pending_siri_queue.json"
+    private let bankStatementQueueFileName = "pending_bank_statement_queue.json"
     
     private var containerURL: URL? {
         FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Self.appGroupID)
@@ -20,6 +21,10 @@ class SharedQueueStorage {
     
     private var siriQueueFileURL: URL? {
         containerURL?.appendingPathComponent(siriQueueFileName)
+    }
+    
+    private var bankStatementQueueFileURL: URL? {
+        containerURL?.appendingPathComponent(bankStatementQueueFileName)
     }
     
     struct PendingSMS: Codable, Identifiable {
@@ -50,6 +55,46 @@ class SharedQueueStorage {
             self.biller = biller
             self.date = date
             self.dateAdded = Date()
+        }
+    }
+    
+    /// Pre-parsed expense from Bank Statement PDF
+    struct PendingBankStatementExpense: Codable, Identifiable {
+        let id: UUID
+        var amount: Double
+        var category: String
+        var description: String
+        var date: Date
+        let dateAdded: Date
+        let parsedWithAI: Bool
+        var detectedCurrency: DetectedCurrency
+        
+        init(amount: Double, category: String, description: String, date: Date, parsedWithAI: Bool = false, currency: DetectedCurrency = .inr) {
+            self.id = UUID()
+            self.amount = amount
+            self.category = category
+            self.description = description
+            self.date = date
+            self.dateAdded = Date()
+            self.parsedWithAI = parsedWithAI
+            self.detectedCurrency = currency
+        }
+        
+        // Custom decoder to handle missing detectedCurrency field (backward compatibility)
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            id = try container.decode(UUID.self, forKey: .id)
+            amount = try container.decode(Double.self, forKey: .amount)
+            category = try container.decode(String.self, forKey: .category)
+            description = try container.decode(String.self, forKey: .description)
+            date = try container.decode(Date.self, forKey: .date)
+            dateAdded = try container.decode(Date.self, forKey: .dateAdded)
+            parsedWithAI = try container.decodeIfPresent(Bool.self, forKey: .parsedWithAI) ?? false
+            detectedCurrency = try container.decodeIfPresent(DetectedCurrency.self, forKey: .detectedCurrency) ?? .inr
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case id, amount, category, description, date, dateAdded, parsedWithAI, detectedCurrency
         }
     }
     
@@ -155,7 +200,7 @@ class SharedQueueStorage {
     
     /// Get count of pending items
     func pendingCount() -> Int {
-        loadQueue().count + loadSiriQueue().count
+        loadQueue().count + loadSiriQueue().count + loadBankStatementQueue().count
     }
     
     // MARK: - Siri Queue Methods
@@ -213,6 +258,79 @@ class SharedQueueStorage {
     /// Get count of pending Siri items
     func pendingSiriCount() -> Int {
         loadSiriQueue().count
+    }
+    
+    // MARK: - Bank Statement Queue Methods
+    
+    /// Add expense from Bank Statement (pre-parsed)
+    func addFromBankStatement(amount: Double, category: String, description: String, date: Date) {
+        var queue = loadBankStatementQueue()
+        queue.append(PendingBankStatementExpense(amount: amount, category: category, description: description, date: date))
+        saveBankStatementQueue(queue)
+    }
+    
+    /// Add multiple expenses from Bank Statement
+    func addMultipleFromBankStatement(_ expenses: [(amount: Double, category: String, description: String, date: Date, currency: DetectedCurrency)], parsedWithAI: Bool = false) {
+        var queue = loadBankStatementQueue()
+        for expense in expenses {
+            queue.append(PendingBankStatementExpense(
+                amount: expense.amount,
+                category: expense.category,
+                description: expense.description,
+                date: expense.date,
+                parsedWithAI: parsedWithAI,
+                currency: expense.currency
+            ))
+        }
+        saveBankStatementQueue(queue)
+    }
+    
+    /// Load all pending Bank Statement expenses
+    func loadBankStatementQueue() -> [PendingBankStatementExpense] {
+        guard let url = bankStatementQueueFileURL,
+              FileManager.default.fileExists(atPath: url.path) else {
+            return []
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            return try JSONDecoder().decode([PendingBankStatementExpense].self, from: data)
+        } catch {
+            print("Error loading Bank Statement queue: \(error)")
+            return []
+        }
+    }
+    
+    /// Save Bank Statement queue to shared container
+    private func saveBankStatementQueue(_ queue: [PendingBankStatementExpense]) {
+        guard let url = bankStatementQueueFileURL else {
+            print("Error: App Group container not available for Bank Statement queue")
+            return
+        }
+        
+        do {
+            let data = try JSONEncoder().encode(queue)
+            try data.write(to: url)
+        } catch {
+            print("Error saving Bank Statement queue: \(error)")
+        }
+    }
+    
+    /// Remove specific Bank Statement item from queue
+    func removeFromBankStatementQueue(id: UUID) {
+        var queue = loadBankStatementQueue()
+        queue.removeAll { $0.id == id }
+        saveBankStatementQueue(queue)
+    }
+    
+    /// Clear entire Bank Statement queue
+    func clearBankStatementQueue() {
+        saveBankStatementQueue([])
+    }
+    
+    /// Get count of pending Bank Statement items
+    func pendingBankStatementCount() -> Int {
+        loadBankStatementQueue().count
     }
 }
 

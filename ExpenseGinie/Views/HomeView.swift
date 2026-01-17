@@ -7,7 +7,12 @@ struct HomeView: View {
     @Query private var budgets: [Budget]
     @EnvironmentObject var themeSettings: ThemeSettings
     
+    var onSwitchToReview: (() -> Void)?
+    
     @State private var showingInput = false
+    @State private var showingPDFImport = false
+    @State private var selectedStatementType: StatementType = .bank
+    @State private var pendingPDFCount = 0
     @State private var lastParsedMessage: String?
     @State private var isError = false
     @State private var selectedFilter: DateFilter = DateFilter.currentMonth()
@@ -109,8 +114,9 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
+        ZStack(alignment: .bottom) {
+            NavigationStack {
+                List {
                 // Summary Section with Date Filter
                 Section {
                     VStack(spacing: 12) {
@@ -224,13 +230,6 @@ struct HomeView: View {
                     }
                 }
                 
-                // Status message
-                if let message = lastParsedMessage {
-                    Section {
-                        Label(message, systemImage: isError ? "exclamationmark.triangle.fill" : "checkmark.circle.fill")
-                            .foregroundStyle(isError ? .red : .green)
-                    }
-                }
             }
             .listStyle(.insetGrouped)
             .scrollIndicators(.hidden)
@@ -268,9 +267,57 @@ struct HomeView: View {
                 )
                 .tint(tintColor)
             }
+            .sheet(isPresented: $showingPDFImport) {
+                PDFImportView(statementType: selectedStatementType) { count in
+                    pendingPDFCount = count
+                }
+            }
+            .onChange(of: showingPDFImport) { _, isShowing in
+                // Show toast and switch to Review tab after sheet is fully dismissed
+                if !isShowing && pendingPDFCount > 0 {
+                    let count = pendingPDFCount
+                    pendingPDFCount = 0
+                    
+                    // Small delay to ensure sheet animation completes
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        lastParsedMessage = "\(count) expenses added to review"
+                        isError = false
+                        
+                        // Switch to Review tab for bank statement imports
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            onSwitchToReview?()
+                        }
+                    }
+                }
+            }
             .overlay(alignment: .bottomTrailing) {
-                // Floating Action Button
-                Button(action: { showingInput = true }) {
+                // Floating Action Button with Menu
+                Menu {
+                    // Analyse Statements Section
+                    Section("Analyse Statement") {
+                        Button {
+                            selectedStatementType = .bank
+                            showingPDFImport = true
+                        } label: {
+                            Label("Bank Statement", systemImage: "building.columns.fill")
+                        }
+                        
+                        Button {
+                            selectedStatementType = .creditCard
+                            showingPDFImport = true
+                        } label: {
+                            Label("Credit Card Statement", systemImage: "creditcard.fill")
+                        }
+                    }
+                    
+                    Divider()
+                    
+                    Button {
+                        showingInput = true
+                    } label: {
+                        Label("Add Manually", systemImage: "square.and.pencil")
+                    }
+                } label: {
                     Image(systemName: "plus")
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -283,25 +330,41 @@ struct HomeView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 16)
             }
+            }
+            
+            // Toast overlay - above FAB
+            if let message = lastParsedMessage {
+                ToastView(message: message, isError: isError)
+                    .padding(.bottom, 100)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                lastParsedMessage = nil
+                            }
+                        }
+                    }
+                    .zIndex(100)
+            }
         }
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: lastParsedMessage)
     }
     
     private func addExpense(_ expense: Expense) {
         modelContext.insert(expense)
         try? modelContext.save()
         
-        lastParsedMessage = "Added \(expense.amount.currencyFormatted) to \(expense.category)"
-        isError = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            withAnimation { lastParsedMessage = nil }
-        }
-        
         showingInput = false
+        
+        // Show toast after sheet dismisses
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            lastParsedMessage = "Added \(expense.amount.currencyFormatted) to \(expense.category)"
+            isError = false
+        }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(onSwitchToReview: nil)
         .environmentObject(ThemeSettings.shared)
 }

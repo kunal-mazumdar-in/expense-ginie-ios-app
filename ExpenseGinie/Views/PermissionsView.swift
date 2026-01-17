@@ -1,5 +1,4 @@
 import SwiftUI
-import UserNotifications
 
 // MARK: - Permission Status
 enum PermissionStatus {
@@ -47,8 +46,8 @@ struct PermissionItem: Identifiable {
 
 // MARK: - Permissions View
 struct PermissionsView: View {
-    @State private var notificationStatus: PermissionStatus = .notDetermined
     @State private var siriStatus: PermissionStatus = .notDetermined
+    @StateObject private var llmAvailability = LLMAvailability.shared
     
     var body: some View {
         List {
@@ -62,23 +61,108 @@ struct PermissionsView: View {
                     description: "Add expenses using voice commands",
                     status: siriStatus,
                     actionText: "Settings",
-                    action: openSiriSettings
+                    action: openAppSettings
                 )
                 
-                // Notifications
-                PermissionRow(
-                    icon: "bell.circle.fill",
-                    iconColor: .red,
-                    name: "Notifications",
-                    description: "Get alerts for expense reviews",
-                    status: notificationStatus,
-                    actionText: notificationStatus == .granted ? nil : "Enable",
-                    action: notificationStatus == .granted ? nil : requestNotifications
-                )
+                // Apple Intelligence
+                HStack(spacing: 14) {
+                    Image(systemName: "brain.head.profile")
+                        .font(.title)
+                        .foregroundStyle(.indigo)
+                        .frame(width: 36)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Apple Intelligence")
+                            .font(.body)
+                            .fontWeight(.medium)
+                        
+                        Text("On-device AI for statement parsing")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                    Spacer()
+                    
+                    // Status indicator with optional tap action
+                    if llmAvailability.status.canOpenSettings {
+                        Button {
+                            openAppSettings()
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: llmAvailability.status.icon)
+                                    .foregroundStyle(llmAvailability.status.iconColor)
+                                Text(llmAvailability.status.statusText)
+                                    .font(.subheadline)
+                                    .foregroundStyle(llmAvailability.status.iconColor)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    } else {
+                        HStack(spacing: 6) {
+                            Image(systemName: llmAvailability.status.icon)
+                                .foregroundStyle(llmAvailability.status.iconColor)
+                            Text(llmAvailability.status.statusText)
+                                .font(.subheadline)
+                                .foregroundStyle(llmAvailability.status.iconColor)
+                        }
+                    }
+                }
+                .padding(.vertical, 4)
             } header: {
                 Text("Required Permissions")
             } footer: {
-                Text("Enable Siri to use voice commands like 'Track Food expense in Expense Ginie'")
+                if llmAvailability.status == .unavailable {
+                    Text("Apple Intelligence requires iOS 26.0 or later.")
+                } else if llmAvailability.status == .notEnabled {
+                    Text("Tap Apple Intelligence to enable in Settings.")
+                }
+            }
+            
+            // AI Features Section
+            Section {
+                HStack(spacing: 14) {
+                    Image(systemName: "doc.text.magnifyingglass")
+                        .font(.title)
+                        .foregroundStyle(llmAvailability.status == .enabled ? .blue : .secondary)
+                        .frame(width: 36)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Analyse Statements")
+                            .font(.body)
+                            .fontWeight(.medium)
+                            .foregroundStyle(llmAvailability.status == .enabled ? .primary : .secondary)
+                        
+                        Text("Use AI to parse bank statements")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                    Spacer()
+                    
+                    // Show toggle only when AI is available
+                    if llmAvailability.status == .enabled {
+                        Toggle("", isOn: $llmAvailability.isAIParsingEnabled)
+                            .labelsHidden()
+                    } else {
+                        // Show disabled state
+                        Toggle("", isOn: .constant(false))
+                            .labelsHidden()
+                            .disabled(true)
+                    }
+                }
+                .padding(.vertical, 4)
+            } header: {
+                Text("AI Features")
+            } footer: {
+                if llmAvailability.status == .unavailable {
+                    Text("Requires iOS 26.0 or later to enable AI-powered statement analysis.")
+                } else if llmAvailability.status == .notEnabled {
+                    Text("Enable Apple Intelligence in Settings first to use AI-powered statement analysis.")
+                } else if llmAvailability.isAIParsingEnabled {
+                    Text("Bank statements will be analysed using on-device AI for better accuracy.")
+                } else {
+                    Text("When enabled, AI will extract transactions from bank statement PDFs with higher accuracy.")
+                }
             }
             
             // Siri Phrases Section
@@ -107,33 +191,14 @@ struct PermissionsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             checkPermissions()
+            llmAvailability.checkStatus()
         }
     }
     
     // MARK: - Permission Checks
     
     private func checkPermissions() {
-        checkNotificationPermission()
         checkSiriPermission()
-    }
-    
-    private func checkNotificationPermission() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                switch settings.authorizationStatus {
-                case .authorized, .provisional:
-                    notificationStatus = .granted
-                case .denied:
-                    notificationStatus = .denied
-                case .notDetermined:
-                    notificationStatus = .notDetermined
-                case .ephemeral:
-                    notificationStatus = .granted
-                @unknown default:
-                    notificationStatus = .notDetermined
-                }
-            }
-        }
     }
     
     private func checkSiriPermission() {
@@ -143,22 +208,6 @@ struct PermissionsView: View {
     }
     
     // MARK: - Actions
-    
-    private func requestNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-            DispatchQueue.main.async {
-                notificationStatus = granted ? .granted : .denied
-                if !granted {
-                    openAppSettings()
-                }
-            }
-        }
-    }
-    
-    private func openSiriSettings() {
-        // Open app's settings page - Siri & Search is found there
-        openAppSettings()
-    }
     
     private func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -201,16 +250,15 @@ struct PermissionRow: View {
             // Status or Action
             if let actionText = actionText, let action = action {
                 Button(action: action) {
-                    HStack(spacing: 4) {
+                    HStack(spacing: 6) {
                         Image(systemName: status.icon)
                             .foregroundStyle(status.color)
                         Text(actionText)
                             .font(.subheadline)
-                            .fontWeight(.medium)
+                            .foregroundStyle(status.color)
                     }
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.small)
+                .buttonStyle(.plain)
             } else {
                 // Status indicator
                 HStack(spacing: 6) {

@@ -1,11 +1,45 @@
 import Foundation
 
+// Common currency symbols and codes
+enum DetectedCurrency: String, Codable, CaseIterable {
+    case inr = "INR"  // Indian Rupee ₹
+    case usd = "USD"  // US Dollar $
+    case eur = "EUR"  // Euro €
+    case gbp = "GBP"  // British Pound £
+    case aed = "AED"  // UAE Dirham
+    case sgd = "SGD"  // Singapore Dollar
+    case aud = "AUD"  // Australian Dollar
+    case cad = "CAD"  // Canadian Dollar
+    case jpy = "JPY"  // Japanese Yen ¥
+    case unknown = "Unknown"
+    
+    var symbol: String {
+        switch self {
+        case .inr: return "₹"
+        case .usd: return "$"
+        case .eur: return "€"
+        case .gbp: return "£"
+        case .aed: return "AED"
+        case .sgd: return "S$"
+        case .aud: return "A$"
+        case .cad: return "C$"
+        case .jpy: return "¥"
+        case .unknown: return "?"
+        }
+    }
+    
+    var isINR: Bool {
+        self == .inr
+    }
+}
+
 struct ParsedSMS {
     let amount: Double
     let biller: String
     let category: String
     let date: Date
     let rawSMS: String
+    let detectedCurrency: DetectedCurrency
 }
 
 @MainActor
@@ -17,7 +51,7 @@ class SMSParser {
     }
     
     func parse(sms: String) -> ParsedSMS? {
-        guard let amount = extractAmount(from: sms), amount > 0 else {
+        guard let (amount, currency) = extractAmountAndCurrency(from: sms), amount > 0 else {
             return nil
         }
         
@@ -29,29 +63,76 @@ class SMSParser {
             biller: biller,
             category: category,
             date: date,
-            rawSMS: sms
+            rawSMS: sms,
+            detectedCurrency: currency
         )
     }
     
-    /// Extract amount from SMS - supports Rs., Rs, INR, ₹ formats
-    private func extractAmount(from sms: String) -> Double? {
-        let patterns = [
-            "(?:Rs\\.?|INR|₹)\\s*([\\d,]+\\.?\\d*)",
-            "(?:debited|credited|paid|spent|received).*?(?:Rs\\.?|INR|₹)\\s*([\\d,]+\\.?\\d*)",
-            "([\\d,]+\\.?\\d*)\\s*(?:debited|credited)"
+    /// Extract amount and currency from SMS - supports multiple currency formats
+    private func extractAmountAndCurrency(from sms: String) -> (Double, DetectedCurrency)? {
+        // Currency patterns with their corresponding currency type
+        // Order matters - more specific patterns first
+        let currencyPatterns: [(pattern: String, currency: DetectedCurrency)] = [
+            // INR patterns
+            ("(?:Rs\\.?|INR|₹)\\s*([\\d,]+\\.?\\d*)", .inr),
+            ("([\\d,]+\\.?\\d*)\\s*(?:Rs\\.?|INR)", .inr),
+            // USD patterns
+            ("(?:USD|US\\$|\\$)\\s*([\\d,]+\\.?\\d*)", .usd),
+            ("([\\d,]+\\.?\\d*)\\s*(?:USD|US\\$)", .usd),
+            // EUR patterns
+            ("(?:EUR|€)\\s*([\\d,]+\\.?\\d*)", .eur),
+            ("([\\d,]+\\.?\\d*)\\s*(?:EUR|€)", .eur),
+            // GBP patterns
+            ("(?:GBP|£)\\s*([\\d,]+\\.?\\d*)", .gbp),
+            ("([\\d,]+\\.?\\d*)\\s*(?:GBP|£)", .gbp),
+            // AED patterns
+            ("(?:AED|Dh|DH)\\s*([\\d,]+\\.?\\d*)", .aed),
+            ("([\\d,]+\\.?\\d*)\\s*(?:AED|Dh|DH)", .aed),
+            // SGD patterns
+            ("(?:SGD|S\\$)\\s*([\\d,]+\\.?\\d*)", .sgd),
+            ("([\\d,]+\\.?\\d*)\\s*(?:SGD|S\\$)", .sgd),
+            // AUD patterns
+            ("(?:AUD|A\\$)\\s*([\\d,]+\\.?\\d*)", .aud),
+            ("([\\d,]+\\.?\\d*)\\s*(?:AUD|A\\$)", .aud),
+            // CAD patterns
+            ("(?:CAD|C\\$)\\s*([\\d,]+\\.?\\d*)", .cad),
+            ("([\\d,]+\\.?\\d*)\\s*(?:CAD|C\\$)", .cad),
+            // JPY patterns
+            ("(?:JPY|¥)\\s*([\\d,]+\\.?\\d*)", .jpy),
+            ("([\\d,]+\\.?\\d*)\\s*(?:JPY|¥)", .jpy),
         ]
         
-        for pattern in patterns {
-            if let match = sms.range(of: pattern, options: .regularExpression) {
+        for (pattern, currency) in currencyPatterns {
+            if let match = sms.range(of: pattern, options: [.regularExpression, .caseInsensitive]) {
                 let matchedString = String(sms[match])
                 if let numberMatch = matchedString.range(of: "[\\d,]+\\.?\\d*", options: .regularExpression) {
                     let numberStr = String(matchedString[numberMatch]).replacingOccurrences(of: ",", with: "")
-                    if let amount = Double(numberStr) {
-                        return amount
+                    if let amount = Double(numberStr), amount > 0 {
+                        return (amount, currency)
                     }
                 }
             }
         }
+        
+        // Fallback: try to find any amount without currency marker
+        let genericPatterns = [
+            "(?:debited|credited|paid|spent|received).*?([\\d,]+\\.\\d{2})",
+            "([\\d,]+\\.\\d{2})\\s*(?:debited|credited)"
+        ]
+        
+        for pattern in genericPatterns {
+            if let match = sms.range(of: pattern, options: [.regularExpression, .caseInsensitive]) {
+                let matchedString = String(sms[match])
+                if let numberMatch = matchedString.range(of: "[\\d,]+\\.\\d{2}", options: .regularExpression) {
+                    let numberStr = String(matchedString[numberMatch]).replacingOccurrences(of: ",", with: "")
+                    if let amount = Double(numberStr), amount > 0 {
+                        // Assume INR for Indian bank messages without explicit currency
+                        return (amount, .inr)
+                    }
+                }
+            }
+        }
+        
         return nil
     }
     

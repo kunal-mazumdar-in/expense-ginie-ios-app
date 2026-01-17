@@ -140,6 +140,8 @@ struct ExpenseRow: View {
     let categories: [String]
     let onCategoryChange: (String) -> Void
     
+    @State private var isExpanded = false
+    
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -161,8 +163,18 @@ struct ExpenseRow: View {
                 
                 Spacer()
                 
-                Text(expense.amount.currencyFormatted)
-                    .font(.system(.title3, design: .rounded, weight: .semibold))
+                HStack(spacing: 6) {
+                    Text(expense.amount.currencyFormatted)
+                        .font(.system(.title3, design: .rounded, weight: .semibold))
+                    
+                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                isExpanded.toggle()
             }
             
             // Category picker
@@ -190,10 +202,11 @@ struct ExpenseRow: View {
             }
             
             // SMS Preview
-            Text(expense.rawSMS)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .lineLimit(2)
+            if isExpanded {
+                Text(expense.rawSMS)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
         .padding(.vertical, 4)
     }

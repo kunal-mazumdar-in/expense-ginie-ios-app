@@ -14,7 +14,10 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Home Tab
-            HomeView()
+            HomeView(onSwitchToReview: {
+                selectedTab = 1
+                refreshPendingCount()
+            })
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
