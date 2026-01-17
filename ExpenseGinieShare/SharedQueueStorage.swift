@@ -31,10 +31,60 @@ class SharedQueueStorage {
     }
     
     /// Add SMS to pending queue (called from Share Extension)
-    func addToQueue(smsText: String) {
+    /// Supports multiple expenses separated by blank lines or "---" delimiters
+    /// Returns the number of expenses added
+    @discardableResult
+    func addToQueue(smsText: String) -> Int {
+        let segments = splitIntoExpenses(text: smsText)
+        guard !segments.isEmpty else { return 0 }
+        
         var queue = loadQueue()
-        queue.append(PendingSMS(text: smsText))
+        for segment in segments {
+            queue.append(PendingSMS(text: segment))
+        }
         saveQueue(queue)
+        return segments.count
+    }
+    
+    /// Split text into multiple expense segments
+    /// Delimiters: blank lines (double newline) or lines with 2+ dashes (any type)
+    private func splitIntoExpenses(text: String) -> [String] {
+        // Normalize line endings
+        var normalized = text.replacingOccurrences(of: "\r\n", with: "\n")
+        
+        // All types of dashes to recognize as separators:
+        // - Hyphen-minus (-) U+002D
+        // - En-dash (–) U+2013
+        // - Em-dash (—) U+2014
+        // - Horizontal bar (―) U+2015
+        let dashCharacters: Set<Character> = ["-", "–", "—", "―"]
+        
+        // Replace dash-only lines (2+ dashes of any type) with empty line
+        let lines = normalized.components(separatedBy: "\n")
+        var processedLines: [String] = []
+        
+        for line in lines {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            // Check if line contains only dash characters (2 or more)
+            let isDashSeparator = trimmed.count >= 2 && trimmed.allSatisfy { dashCharacters.contains($0) }
+            
+            if isDashSeparator {
+                // Replace dash line with empty line (becomes separator)
+                processedLines.append("")
+            } else {
+                processedLines.append(line)
+            }
+        }
+        
+        normalized = processedLines.joined(separator: "\n")
+        
+        // Now split by double newlines (blank lines)
+        let segments = normalized
+            .components(separatedBy: "\n\n")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        
+        return segments
     }
     
     /// Load all pending SMSs

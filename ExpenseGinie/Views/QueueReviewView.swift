@@ -108,15 +108,32 @@ struct ReviewContentView: View {
     private func loadAndParse() {
         // Load SMS queue
         pendingItems = queueStorage.loadQueue()
-        parsedExpenses = pendingItems.map { sms in
-            ReviewParsedItem(
-                id: sms.id,
-                sms: sms,
-                parsedSMS: parser.parse(sms: sms.text),
-                overrideCategory: nil,
-                overrideDate: nil
-            )
+        
+        // Parse and filter out unparseable items
+        var validExpenses: [ReviewParsedItem] = []
+        var invalidIds: [UUID] = []
+        
+        for sms in pendingItems {
+            if let parsed = parser.parse(sms: sms.text) {
+                validExpenses.append(ReviewParsedItem(
+                    id: sms.id,
+                    sms: sms,
+                    parsedSMS: parsed,
+                    overrideCategory: nil,
+                    overrideDate: nil
+                ))
+            } else {
+                // Can't parse - remove from queue silently
+                invalidIds.append(sms.id)
+            }
         }
+        
+        // Remove unparseable items from queue
+        for id in invalidIds {
+            queueStorage.removeFromQueue(id: id)
+        }
+        
+        parsedExpenses = validExpenses
         
         // Load Siri queue
         let siriPending = queueStorage.loadSiriQueue()
@@ -241,29 +258,21 @@ struct ReviewPendingExpenseRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                if let parsed = item.parsedSMS {
-                    Text(parsed.amount.currencyFormatted)
-                        .font(.headline)
-                    
-                    Spacer()
-                    
-                    // Accept button
-                    Button(action: onAdd) {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.title)
-                            .foregroundStyle(.green)
-                    }
-                    .buttonStyle(.plain)
-                } else {
-                    Label("Could not parse", systemImage: "exclamationmark.triangle.fill")
-                        .font(.subheadline)
-                        .foregroundStyle(.orange)
-                    
-                    Spacer()
+                Text(item.parsedSMS?.amount.currencyFormatted ?? "₹0")
+                    .font(.headline)
+                
+                Spacer()
+                
+                // Accept button
+                Button(action: onAdd) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title)
+                        .foregroundStyle(.green)
                 }
+                .buttonStyle(.plain)
             }
             
-            // Date and Category pickers (only for parsed items)
+            // Date and Category pickers
             if item.parsedSMS != nil {
                 HStack(spacing: 6) {
                     // Date picker button

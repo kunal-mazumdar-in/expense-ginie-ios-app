@@ -49,17 +49,17 @@ class ShareViewController: UIViewController {
     }
     
     private func processSMS(text: String) {
-        // Save to shared queue
+        // Save to shared queue (supports multiple expenses)
         let queueStorage = SharedQueueStorage.shared
-        queueStorage.addToQueue(smsText: text)
+        let count = queueStorage.addToQueue(smsText: text)
         
         // Show brief success feedback
         DispatchQueue.main.async {
-            self.showSuccessAndDismiss()
+            self.showSuccessAndDismiss(count: count)
         }
     }
     
-    private func showSuccessAndDismiss() {
+    private func showSuccessAndDismiss(count: Int) {
         // Create a simple success view
         let successView = UIView()
         successView.backgroundColor = UIColor(red: 0.08, green: 0.08, blue: 0.08, alpha: 0.95)
@@ -80,7 +80,11 @@ class ShareViewController: UIViewController {
         checkmark.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
         let label = UILabel()
-        label.text = "Added to Expense Ginie"
+        if count == 1 {
+            label.text = "Added to Expense Ginie"
+        } else {
+            label.text = "\(count) expenses added"
+        }
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         
