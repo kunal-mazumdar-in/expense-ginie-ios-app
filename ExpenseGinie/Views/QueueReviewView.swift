@@ -12,7 +12,7 @@ struct ReviewContentView: View {
     @State private var showingClearConfirmation = false
     
     private let queueStorage = SharedQueueStorage.shared
-    private let categories = ["Banking", "Food", "Groceries", "Transport", "Shopping", "UPI", "Bills", "Entertainment", "Medical", "Other"]
+    private let categories = AppTheme.allCategories
     
     private var parser: SMSParser {
         SMSParser(mappingStorage: MappingStorage.shared)
@@ -56,7 +56,7 @@ struct ReviewContentView: View {
                     
                     // SMS expenses section
                     if !parsedExpenses.isEmpty {
-                        Section("From SMS (\(parsedExpenses.count))") {
+                        Section("Shared From Other Apps (\(parsedExpenses.count))") {
                             ForEach($parsedExpenses) { $item in
                                 ReviewPendingExpenseRow(
                                     item: $item,

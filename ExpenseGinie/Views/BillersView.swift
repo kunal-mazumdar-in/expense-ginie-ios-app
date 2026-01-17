@@ -122,7 +122,7 @@ struct BillerEditView: View {
     @State private var biller: String = ""
     @State private var category: String = "Other"
     
-    private let categories = ["Banking", "Food", "Groceries", "Transport", "Shopping", "UPI", "Bills", "Entertainment", "Medical", "Other"]
+    private let categories = AppTheme.allCategories
     
     private var isEditing: Bool {
         if case .edit = mode { return true }

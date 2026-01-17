@@ -3,6 +3,37 @@ import SwiftUI
 // Apple UI Kit - Native iOS Design System
 // Uses system colors that automatically adapt to light/dark mode
 struct AppTheme {
+    // All expense categories (single source of truth)
+    static let allCategories = [
+        "Housing & Rent",
+        "Utilities",
+        "Groceries",
+        "Food & Dining",
+        "Transport & Fuel",
+        "Shopping",
+        "Medical & Healthcare",
+        "Entertainment",
+        "Subscriptions",
+        "Bills & Recharge",
+        "Insurance",
+        "Debt & EMI",
+        "Investments",
+        "Education & Learning",
+        "Business Operations",
+        "Marketing & Ads",
+        "Inventory & Supplies",
+        "Professional Fees",
+        "Travel & Vacation",
+        "Taxes",
+        "Gifts & Donations",
+        "Family & Dependents",
+        "Pet Care",
+        "Vehicle Maintenance",
+        "Banking & Fees",
+        "UPI / Petty Cash",
+        "Other"
+    ]
+    
     // System-adaptive colors
     static let background = Color(.systemBackground)
     static let secondaryBackground = Color(.secondarySystemBackground)
@@ -23,15 +54,32 @@ struct AppTheme {
     
     // Category colors - Vibrant iOS-style colors
     static let categoryColors: [String: Color] = [
-        "Banking": .blue,
-        "Food": .orange,
-        "Transport": .green,
-        "Shopping": .purple,
+        "Housing & Rent": .brown,
+        "Utilities": .yellow,
         "Groceries": .mint,
-        "UPI": .pink,
-        "Bills": .yellow,
-        "Entertainment": .cyan,
-        "Medical": .red,
+        "Food & Dining": .orange,
+        "Transport & Fuel": .green,
+        "Shopping": .purple,
+        "Medical & Healthcare": .red,
+        "Entertainment": .pink,
+        "Subscriptions": .cyan,
+        "Bills & Recharge": .indigo,
+        "Insurance": .teal,
+        "Debt & EMI": Color(red: 0.8, green: 0.4, blue: 0.4),
+        "Investments": Color(red: 0.2, green: 0.6, blue: 0.4),
+        "Education & Learning": .blue,
+        "Business Operations": .gray,
+        "Marketing & Ads": Color(red: 1.0, green: 0.5, blue: 0.0),
+        "Inventory & Supplies": Color(red: 0.6, green: 0.4, blue: 0.2),
+        "Professional Fees": Color(red: 0.4, green: 0.4, blue: 0.6),
+        "Travel & Vacation": Color(red: 0.0, green: 0.7, blue: 0.9),
+        "Taxes": Color(red: 0.5, green: 0.0, blue: 0.0),
+        "Gifts & Donations": Color(red: 0.9, green: 0.3, blue: 0.5),
+        "Family & Dependents": Color(red: 0.6, green: 0.3, blue: 0.6),
+        "Pet Care": Color(red: 0.8, green: 0.6, blue: 0.4),
+        "Vehicle Maintenance": Color(red: 0.3, green: 0.3, blue: 0.3),
+        "Banking & Fees": .blue,
+        "UPI / Petty Cash": .pink,
         "Other": .gray
     ]
     
@@ -42,15 +90,32 @@ struct AppTheme {
     // SF Symbol for category
     static func iconForCategory(_ category: String) -> String {
         switch category {
-        case "Banking": return "building.columns.fill"
-        case "Food": return "fork.knife"
-        case "Transport": return "car.fill"
-        case "Shopping": return "bag.fill"
+        case "Housing & Rent": return "house.fill"
+        case "Utilities": return "bolt.fill"
         case "Groceries": return "cart.fill"
-        case "UPI": return "indianrupeesign.circle.fill"
-        case "Bills": return "doc.text.fill"
+        case "Food & Dining": return "fork.knife"
+        case "Transport & Fuel": return "car.fill"
+        case "Shopping": return "bag.fill"
+        case "Medical & Healthcare": return "cross.case.fill"
         case "Entertainment": return "tv.fill"
-        case "Medical": return "cross.case.fill"
+        case "Subscriptions": return "play.rectangle.fill"
+        case "Bills & Recharge": return "phone.fill"
+        case "Insurance": return "shield.fill"
+        case "Debt & EMI": return "creditcard.fill"
+        case "Investments": return "chart.line.uptrend.xyaxis"
+        case "Education & Learning": return "book.fill"
+        case "Business Operations": return "briefcase.fill"
+        case "Marketing & Ads": return "megaphone.fill"
+        case "Inventory & Supplies": return "shippingbox.fill"
+        case "Professional Fees": return "person.text.rectangle.fill"
+        case "Travel & Vacation": return "airplane"
+        case "Taxes": return "doc.text.fill"
+        case "Gifts & Donations": return "gift.fill"
+        case "Family & Dependents": return "figure.2.and.child.holdinghands"
+        case "Pet Care": return "pawprint.fill"
+        case "Vehicle Maintenance": return "wrench.and.screwdriver.fill"
+        case "Banking & Fees": return "building.columns.fill"
+        case "UPI / Petty Cash": return "indianrupeesign.circle.fill"
         default: return "ellipsis.circle.fill"
         }
     }

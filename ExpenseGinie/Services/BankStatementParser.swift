@@ -129,7 +129,7 @@ class BankStatementParser: ObservableObject {
         - date: transaction date in DD/MM/YYYY format
         - description: payee/merchant name only (max 50 chars)
         - amount: numeric value (positive number, no currency symbol or commas)
-        - category: one of [Food, Transport, Shopping, Groceries, Entertainment, Bills, Medical, UPI, Banking, Other]
+        - category: one of [Housing & Rent, Utilities, Groceries, Food & Dining, Transport & Fuel, Shopping, Medical & Healthcare, Entertainment, Subscriptions, Bills & Recharge, Insurance, Debt & EMI, Investments, Education & Learning, Travel & Vacation, Banking & Fees, UPI / Petty Cash, Other]
         - currency: 3-letter code (INR, USD, EUR, GBP, AED, SGD, AUD, CAD, JPY) - detect from statement
 
         EXTRACT ONLY THESE (money going OUT of account):
@@ -323,19 +323,7 @@ class BankStatementParser: ObservableObject {
     }
     
     private func categorize(_ description: String) -> String {
-        let desc = description.lowercased()
-        
-        if ["swiggy", "zomato", "domino", "mcdonald", "starbucks", "restaurant", "cafe", "food"].contains(where: { desc.contains($0) }) { return "Food" }
-        if ["uber", "ola", "rapido", "metro", "petrol", "fuel", "parking", "toll"].contains(where: { desc.contains($0) }) { return "Transport" }
-        if ["amazon", "flipkart", "myntra", "ajio", "shopping", "mall", "store"].contains(where: { desc.contains($0) }) { return "Shopping" }
-        if ["bigbasket", "blinkit", "zepto", "grocery", "supermarket", "dmart"].contains(where: { desc.contains($0) }) { return "Groceries" }
-        if ["netflix", "spotify", "prime", "hotstar", "movie", "pvr", "inox"].contains(where: { desc.contains($0) }) { return "Entertainment" }
-        if ["electricity", "water", "gas", "internet", "broadband", "mobile", "recharge", "bill"].contains(where: { desc.contains($0) }) { return "Bills" }
-        if ["pharmacy", "medical", "hospital", "doctor", "apollo", "medplus"].contains(where: { desc.contains($0) }) { return "Medical" }
-        if ["upi", "phonepe", "gpay", "paytm"].contains(where: { desc.contains($0) }) { return "UPI" }
-        if ["atm", "cash", "withdrawal"].contains(where: { desc.contains($0) }) { return "Banking" }
-        
-        return "Other"
+        BillerMapping.categorize(description)
     }
     
     private func removeDuplicates(from transactions: [ParsedTransaction]) -> [ParsedTransaction] {
@@ -385,7 +373,7 @@ class BankStatementParser: ObservableObject {
                 }
                 guard let date = parsedDate else { return nil }
                 
-                let validCategories = ["Food", "Transport", "Shopping", "Groceries", "Entertainment", "Bills", "Medical", "UPI", "Banking", "Other"]
+                let validCategories = AppTheme.allCategories
                 let category = validCategories.contains(llm.category) ? llm.category : "Other"
                 
                 // Parse currency

@@ -331,7 +331,7 @@ class PDFParserService: ObservableObject {
         - date: transaction date in DD/MM/YYYY format
         - description: merchant/vendor name only (max 50 chars)
         - amount: numeric value (positive number, no currency symbol or commas)
-        - category: one of [Food, Transport, Shopping, Groceries, Entertainment, Bills, Medical, UPI, Banking, Other]
+        - category: one of [Housing & Rent, Utilities, Groceries, Food & Dining, Transport & Fuel, Shopping, Medical & Healthcare, Entertainment, Subscriptions, Bills & Recharge, Insurance, Debt & EMI, Investments, Education & Learning, Travel & Vacation, Banking & Fees, UPI / Petty Cash, Other]
 
         IMPORTANT RULES:
         - For CREDIT CARD statements: Extract purchases, charges, fees (EXCLUDE payments, credits, refunds)
@@ -445,7 +445,7 @@ class PDFParserService: ObservableObject {
     }
     
     private func validateCategory(_ category: String) -> String {
-        let validCategories = ["Food", "Transport", "Shopping", "Groceries", "Entertainment", "Bills", "Medical", "UPI", "Banking", "Other"]
+        let validCategories = AppTheme.allCategories
         return validCategories.contains(category) ? category : "Other"
     }
     #endif
@@ -608,54 +608,7 @@ class PDFParserService: ObservableObject {
     }
     
     private func categorizeTransaction(_ description: String) -> String {
-        let desc = description.lowercased()
-        
-        // Food
-        if ["swiggy", "zomato", "domino", "mcdonald", "starbucks", "restaurant", "cafe", "food", "pizza", "burger"].contains(where: { desc.contains($0) }) {
-            return "Food"
-        }
-        
-        // Transport
-        if ["uber", "ola", "rapido", "metro", "petrol", "fuel", "parking", "toll"].contains(where: { desc.contains($0) }) {
-            return "Transport"
-        }
-        
-        // Shopping
-        if ["amazon", "flipkart", "myntra", "ajio", "shopping", "mall", "store"].contains(where: { desc.contains($0) }) {
-            return "Shopping"
-        }
-        
-        // Groceries
-        if ["bigbasket", "blinkit", "zepto", "grocery", "supermarket", "dmart", "reliance"].contains(where: { desc.contains($0) }) {
-            return "Groceries"
-        }
-        
-        // Entertainment
-        if ["netflix", "spotify", "prime", "hotstar", "movie", "pvr", "inox", "bookmyshow"].contains(where: { desc.contains($0) }) {
-            return "Entertainment"
-        }
-        
-        // Bills
-        if ["electricity", "water", "gas", "internet", "broadband", "mobile", "recharge", "bill"].contains(where: { desc.contains($0) }) {
-            return "Bills"
-        }
-        
-        // Medical
-        if ["pharmacy", "medical", "hospital", "doctor", "apollo", "medplus", "1mg"].contains(where: { desc.contains($0) }) {
-            return "Medical"
-        }
-        
-        // UPI
-        if ["upi", "phonepe", "gpay", "paytm"].contains(where: { desc.contains($0) }) {
-            return "UPI"
-        }
-        
-        // ATM/Banking
-        if ["atm", "cash", "withdrawal"].contains(where: { desc.contains($0) }) {
-            return "Banking"
-        }
-        
-        return "Other"
+        BillerMapping.categorize(description)
     }
     
     private func removeDuplicates(from transactions: [ParsedTransaction]) -> [ParsedTransaction] {

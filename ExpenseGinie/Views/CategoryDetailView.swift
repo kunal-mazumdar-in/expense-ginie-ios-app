@@ -12,7 +12,7 @@ struct CategoryDetailView: View {
     @State private var showingDeleteConfirmation = false
     @State private var expenseToDelete: Expense?
     
-    private let categories = ["Banking", "Food", "Groceries", "Transport", "Shopping", "UPI", "Bills", "Entertainment", "Medical", "Other"]
+    private let categories = AppTheme.allCategories
     
     init(category: String, dateFilter: DateFilter = .allTime) {
         self.category = category

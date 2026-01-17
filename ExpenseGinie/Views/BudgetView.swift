@@ -6,7 +6,7 @@ struct BudgetView: View {
     @Query private var budgets: [Budget]
     @EnvironmentObject var themeSettings: ThemeSettings
     
-    private let categories = ["Banking", "Food", "Groceries", "Transport", "Shopping", "UPI", "Bills", "Entertainment", "Medical", "Other"]
+    private let categories = AppTheme.allCategories
     
     var body: some View {
         List {

@@ -151,64 +151,133 @@ struct SMSInputView: View {
     let onSubmit: (Expense) -> Void
     let onCancel: () -> Void
     
+    // SMS parsing mode
     @State private var smsText: String = ""
-    @State private var selectedCategory: String = "Auto Detect"
-    @State private var selectedDate: Date = Date()
     @State private var parsedData: ParsedSMS?
     @State private var parseError: Bool = false
-    @FocusState private var isTextEditorFocused: Bool
     
-    private let categories = ["Auto Detect", "Banking", "Food", "Groceries", "Transport", "Shopping", "UPI", "Bills", "Entertainment", "Medical", "Other"]
+    // Manual entry fields (always visible)
+    @State private var amountText: String = ""
+    @State private var description: String = ""
+    @State private var selectedCategory: String = "Housing & Rent"
+    @State private var selectedDate: Date = Date()
+    
+    @State private var showSMSInput: Bool = false
+    @FocusState private var focusedField: Field?
+    
+    private enum Field {
+        case amount, description, sms
+    }
+    
+    private let categories = AppTheme.allCategories
+    
+    private var amount: Double? {
+        Double(amountText.replacingOccurrences(of: ",", with: ""))
+    }
+    
+    private var canSubmit: Bool {
+        if let amt = amount, amt > 0, !description.isEmpty {
+            return true
+        }
+        return false
+    }
     
     var body: some View {
         NavigationStack {
             Form {
+                // SMS Auto-fill Section (collapsible)
                 Section {
-                    TextEditor(text: $smsText)
-                        .frame(minHeight: 120)
-                        .focused($isTextEditorFocused)
-                        .onChange(of: smsText) { _, newValue in
-                            parseCurrentSMS()
-                        }
-                } header: {
-                    Text("SMS Content")
-                } footer: {
-                    if parseError && !smsText.isEmpty {
-                        Label("Could not detect amount from SMS", systemImage: "exclamationmark.triangle")
-                            .foregroundStyle(.orange)
-                    } else if let data = parsedData {
-                        Label("Detected: \(data.amount.currencyFormatted) from \(data.biller)", systemImage: "checkmark.circle")
-                            .foregroundStyle(.green)
-                    } else {
-                        Text("Paste a transaction SMS from your Messages app")
-                    }
-                }
-                
-                if parsedData != nil {
-                    Section("Date") {
-                        DatePicker(
-                            "Transaction Date",
-                            selection: $selectedDate,
-                            displayedComponents: .date
-                        )
-                    }
-                    
-                    Section("Category") {
-                        Picker("Category", selection: $selectedCategory) {
-                            ForEach(categories, id: \.self) { category in
-                                if category == "Auto Detect" {
-                                    Label("Auto Detect (\(parsedData?.category ?? "Other"))", systemImage: "wand.and.stars")
-                                        .tag(category)
-                                } else {
-                                    Label(category, systemImage: AppTheme.iconForCategory(category))
-                                        .tag(category)
-                                }
+                    VStack(alignment: .leading, spacing: 8) {
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                showSMSInput.toggle()
+                            }
+                        } label: {
+                            HStack {
+                                Label("Auto-fill from Message", systemImage: "doc.text.viewfinder")
+                                Spacer()
+                                Image(systemName: showSMSInput ? "chevron.up" : "chevron.down")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
                             }
                         }
-                        .pickerStyle(.navigationLink)
+                        .buttonStyle(.plain)
+                        
+                        if showSMSInput {
+                            TextEditor(text: $smsText)
+                                .frame(height: 100)
+                                .focused($focusedField, equals: .sms)
+                                .onChange(of: smsText) { _, _ in
+                                    parseCurrentSMS()
+                                }
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color(.separator), lineWidth: 0.5)
+                                )
+                            
+                            if parseError && !smsText.isEmpty {
+                                Label("Could not detect amount", systemImage: "exclamationmark.triangle")
+                                    .font(.caption)
+                                    .foregroundStyle(.orange)
+                            } else if parsedData != nil {
+                                Label("Fields auto-filled", systemImage: "checkmark.circle")
+                                    .font(.caption)
+                                    .foregroundStyle(.green)
+                            }
+                        }
                     }
+                } footer: {
+                    Text("Paste SMS or Email to automatically fill the fields")
                 }
                 
+                // Amount Section
+                Section {
+                    HStack {
+                        Text("₹")
+                            .font(.title2)
+                            .foregroundStyle(.secondary)
+                        TextField("0.00", text: $amountText)
+                            .keyboardType(.decimalPad)
+                            .font(.title2)
+                            .focused($focusedField, equals: .amount)
+                    }
+                } header: {
+                    Text("Amount")
+                }
+                
+                // Description Section
+                Section {
+                    TextField("Merchant or description", text: $description)
+                        .focused($focusedField, equals: .description)
+                } header: {
+                    Text("Description")
+                }
+                
+                // Category Section
+                Section {
+                    Picker("Category", selection: $selectedCategory) {
+                        ForEach(categories, id: \.self) { category in
+                            Label(category, systemImage: AppTheme.iconForCategory(category))
+                                .tag(category)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                } header: {
+                    Text("Category")
+                }
+                
+                // Date Section
+                Section {
+                    DatePicker(
+                        "Transaction Date",
+                        selection: $selectedDate,
+                        displayedComponents: .date
+                    )
+                } header: {
+                    Text("Date")
+                }
+                
+                // Submit Button
                 Section {
                     Button(action: submitExpense) {
                         HStack {
@@ -218,9 +287,10 @@ struct SMSInputView: View {
                             Spacer()
                         }
                     }
-                    .disabled(parsedData == nil)
+                    .disabled(!canSubmit)
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Add Expense")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -229,7 +299,7 @@ struct SMSInputView: View {
                 }
             }
             .onAppear {
-                isTextEditorFocused = true
+                focusedField = .amount
             }
         }
     }
@@ -245,8 +315,12 @@ struct SMSInputView: View {
         if let data = parser.parse(sms: trimmed) {
             parsedData = data
             parseError = false
+            
+            // Auto-fill the form fields
+            amountText = String(format: "%.2f", data.amount)
+            description = data.biller
+            selectedCategory = data.category
             selectedDate = data.date
-            selectedCategory = "Auto Detect"
         } else {
             parsedData = nil
             parseError = true
@@ -254,15 +328,15 @@ struct SMSInputView: View {
     }
     
     private func submitExpense() {
-        guard let data = parsedData else { return }
+        guard let amt = amount, amt > 0 else { return }
         
-        let finalCategory = selectedCategory == "Auto Detect" ? data.category : selectedCategory
+        let rawSMS = smsText.isEmpty ? "Manual: \(description) - \(amt.currencyFormatted)" : smsText
         
         let expense = Expense(
-            amount: data.amount,
-            category: finalCategory,
-            biller: data.biller,
-            rawSMS: data.rawSMS,
+            amount: amt,
+            category: selectedCategory,
+            biller: description,
+            rawSMS: rawSMS,
             date: selectedDate
         )
         

@@ -18,7 +18,7 @@
 
 ## Review Screen
 - **From Siri** section - expenses added via voice
-- **From SMS** section - shared SMS expenses
+- **Shared From Other Apps** section - shared SMS expenses
 - **From Bank Statement** section - PDF imported expenses
 - Per expense card:
   - Editable date picker
