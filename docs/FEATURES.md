@@ -39,7 +39,7 @@
 ## PDF Import (Bank Statement / Credit Card)
 - Separate flows for bank statements vs credit card statements
 - Local on-device processing (privacy indicator shown)
-- AI parsing with Apple Intelligence (iOS 26+) or regex fallback
+- AI analysis with Apple Intelligence (iOS 26+) or rule based analysis as fallback
 - Auto-categorization of transactions
 - Currency detection (INR, USD, EUR, GBP, AED, etc.)
 - Parsed expenses go to Review screen
@@ -78,7 +78,7 @@
 ## Permissions Screen
 - **Siri & Shortcuts**: Status and link to settings
 - **Apple Intelligence**: Availability status (Enabled/Not Enabled/Unavailable)
-- **AI Features**: "Analyse Statements" toggle (opt-in for AI parsing)
+- **AI Features**: "Analyse Statements" toggle (opt-in for AI analysis)
 - Example Siri phrases displayed
 
 ## Budget Management

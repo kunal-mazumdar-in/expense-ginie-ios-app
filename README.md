@@ -22,7 +22,7 @@
 
 🗣️ **Voice Control** — Add expenses hands-free with Siri  
 📄 **PDF Import** — Analyse bank & credit card statements automatically  
-🤖 **AI-Powered** — Apple Intelligence for smart transaction parsing (iOS 26+)  
+🤖 **AI-Powered** — Apple Intelligence for smart transaction analysis (iOS 26+)  
 📱 **Share Extension** — Forward SMS directly from Messages app  
 🔒 **Privacy First** — All data stays on your device  
 
