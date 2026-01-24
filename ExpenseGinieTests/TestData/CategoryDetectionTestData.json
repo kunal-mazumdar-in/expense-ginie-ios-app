@@ -1,0 +1,276 @@
+{
+  "description": "Test data for BillerMapping.categorize() - Biller/merchant to category detection",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "CAT-001",
+      "name": "Food Delivery - Swiggy",
+      "input": "SWIGGY ORDER",
+      "expectedCategory": "Food & Dining"
+    },
+    {
+      "id": "CAT-002",
+      "name": "Food Delivery - Zomato",
+      "input": "Payment to Zomato Ltd",
+      "expectedCategory": "Food & Dining"
+    },
+    {
+      "id": "CAT-003",
+      "name": "OTT - Netflix",
+      "input": "NETFLIX.COM Subscription",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-004",
+      "name": "OTT - Disney+ Hotstar",
+      "input": "HOTSTAR Premium",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-005",
+      "name": "OTT - Amazon Prime Video",
+      "input": "PRIME VIDEO subscription",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-006",
+      "name": "OTT - JioHotstar",
+      "input": "JIOHOTSTAR annual plan",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-007",
+      "name": "OTT - Zee5",
+      "input": "ZEE5 Premium",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-008",
+      "name": "OTT - SonyLIV",
+      "input": "SONYLIV subscription charge",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-009",
+      "name": "OTT - Crunchyroll",
+      "input": "CRUNCHYROLL anime subscription",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-010",
+      "name": "Music Subscription - Spotify",
+      "input": "SPOTIFY Premium",
+      "expectedCategory": "Subscriptions"
+    },
+    {
+      "id": "CAT-011",
+      "name": "Transport - Uber",
+      "input": "UBER TRIP fare",
+      "expectedCategory": "Transport & Fuel"
+    },
+    {
+      "id": "CAT-012",
+      "name": "Transport - Ola",
+      "input": "OLA ride payment",
+      "expectedCategory": "Transport & Fuel"
+    },
+    {
+      "id": "CAT-013",
+      "name": "Transport - Rapido",
+      "input": "RAPIDO bike taxi",
+      "expectedCategory": "Transport & Fuel"
+    },
+    {
+      "id": "CAT-014",
+      "name": "Fuel - Indian Oil",
+      "input": "INDIAN OIL petrol pump",
+      "expectedCategory": "Transport & Fuel"
+    },
+    {
+      "id": "CAT-015",
+      "name": "Shopping - Amazon",
+      "input": "AMAZON.IN order",
+      "expectedCategory": "Shopping"
+    },
+    {
+      "id": "CAT-016",
+      "name": "Shopping - Flipkart",
+      "input": "FLIPKART purchase",
+      "expectedCategory": "Shopping"
+    },
+    {
+      "id": "CAT-017",
+      "name": "Shopping - Myntra",
+      "input": "MYNTRA fashion order",
+      "expectedCategory": "Shopping"
+    },
+    {
+      "id": "CAT-018",
+      "name": "Groceries - BigBasket",
+      "input": "BIGBASKET delivery",
+      "expectedCategory": "Groceries"
+    },
+    {
+      "id": "CAT-019",
+      "name": "Groceries - Blinkit",
+      "input": "BLINKIT quick commerce",
+      "expectedCategory": "Groceries"
+    },
+    {
+      "id": "CAT-020",
+      "name": "Groceries - Zepto",
+      "input": "ZEPTO order",
+      "expectedCategory": "Groceries"
+    },
+    {
+      "id": "CAT-021",
+      "name": "Medical - PharmEasy",
+      "input": "PHARMEASY medicines",
+      "expectedCategory": "Medical & Healthcare"
+    },
+    {
+      "id": "CAT-022",
+      "name": "Medical - Apollo",
+      "input": "APOLLO PHARMACY",
+      "expectedCategory": "Medical & Healthcare"
+    },
+    {
+      "id": "CAT-023",
+      "name": "Utilities - BESCOM",
+      "input": "BESCOM electricity bill",
+      "expectedCategory": "Utilities"
+    },
+    {
+      "id": "CAT-024",
+      "name": "Utilities - Tata Power",
+      "input": "TATA POWER bill payment",
+      "expectedCategory": "Utilities"
+    },
+    {
+      "id": "CAT-025",
+      "name": "Bills - Airtel",
+      "input": "AIRTEL mobile recharge",
+      "expectedCategory": "Bills & Recharge"
+    },
+    {
+      "id": "CAT-026",
+      "name": "Bills - Jio",
+      "input": "JIO prepaid recharge",
+      "expectedCategory": "Bills & Recharge"
+    },
+    {
+      "id": "CAT-027",
+      "name": "Insurance - LIC",
+      "input": "LIC premium payment",
+      "expectedCategory": "Insurance"
+    },
+    {
+      "id": "CAT-028",
+      "name": "Insurance - HDFC Life",
+      "input": "HDFC LIFE insurance",
+      "expectedCategory": "Insurance"
+    },
+    {
+      "id": "CAT-029",
+      "name": "EMI - Bajaj Finserv",
+      "input": "BAJAJ FINSERV EMI",
+      "expectedCategory": "Debt & EMI"
+    },
+    {
+      "id": "CAT-030",
+      "name": "Travel - MakeMyTrip",
+      "input": "MAKEMYTRIP booking",
+      "expectedCategory": "Travel & Vacation"
+    },
+    {
+      "id": "CAT-031",
+      "name": "Travel - Cleartrip",
+      "input": "CLEARTRIP flight",
+      "expectedCategory": "Travel & Vacation"
+    },
+    {
+      "id": "CAT-032",
+      "name": "Education - Udemy",
+      "input": "UDEMY course purchase",
+      "expectedCategory": "Education & Learning"
+    },
+    {
+      "id": "CAT-033",
+      "name": "Entertainment - PVR",
+      "input": "PVR CINEMAS ticket",
+      "expectedCategory": "Entertainment"
+    },
+    {
+      "id": "CAT-034",
+      "name": "Entertainment - BookMyShow",
+      "input": "BOOKMYSHOW movie",
+      "expectedCategory": "Entertainment"
+    },
+    {
+      "id": "CAT-035",
+      "name": "Banking - HDFC",
+      "input": "HDFC Bank charges",
+      "expectedCategory": "Banking & Fees"
+    },
+    {
+      "id": "CAT-036",
+      "name": "UPI - PhonePe",
+      "input": "PHONEPE transfer",
+      "expectedCategory": "UPI / Petty Cash"
+    },
+    {
+      "id": "CAT-037",
+      "name": "Investments - Zerodha",
+      "input": "ZERODHA brokerage",
+      "expectedCategory": "Investments"
+    },
+    {
+      "id": "CAT-038",
+      "name": "Investments - Groww",
+      "input": "GROWW mutual fund",
+      "expectedCategory": "Investments"
+    },
+    {
+      "id": "CAT-039",
+      "name": "Unknown Merchant",
+      "input": "XYZABC Corporation Payment",
+      "expectedCategory": "Other"
+    },
+    {
+      "id": "CAT-040",
+      "name": "Generic Restaurant Keyword",
+      "input": "Local restaurant dinner",
+      "expectedCategory": "Food & Dining"
+    },
+    {
+      "id": "CAT-041",
+      "name": "Generic Grocery Keyword",
+      "input": "Grocery shopping at local store",
+      "expectedCategory": "Groceries"
+    },
+    {
+      "id": "CAT-042",
+      "name": "Generic Medical Keyword",
+      "input": "Hospital bill payment",
+      "expectedCategory": "Medical & Healthcare"
+    },
+    {
+      "id": "CAT-043",
+      "name": "OTT - YouTube Premium",
+      "input": "YOUTUBE PREMIUM subscription",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-044",
+      "name": "OTT - Apple TV+",
+      "input": "APPLE TV PLUS monthly",
+      "expectedCategory": "OTT"
+    },
+    {
+      "id": "CAT-045",
+      "name": "OTT - Mubi",
+      "input": "MUBI streaming service",
+      "expectedCategory": "OTT"
+    }
+  ]
+}

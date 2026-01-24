@@ -18,8 +18,12 @@ final class BillerMapping {
     static func categorize(_ description: String) -> String {
         let desc = description.lowercased()
         
+        // Sort defaults by biller length (descending) to match longer/more specific names first
+        // e.g., "AMAZON PAY" should match before "AMAZON"
+        let sortedDefaults = defaults.sorted { $0.biller.count > $1.biller.count }
+        
         // First, check against default billers (exact/partial match)
-        for (biller, category) in defaults {
+        for (biller, category) in sortedDefaults {
             if desc.contains(biller.lowercased()) {
                 return category
             }
@@ -43,11 +47,11 @@ final class BillerMapping {
         // Transport & Fuel
         (["petrol", "fuel", "diesel", "parking", "toll", "fastag"], "Transport & Fuel"),
         
+        // Groceries (before Shopping - "grocery" should match before generic "store")
+        (["grocery", "supermarket", "vegetables", "fruits", "kirana"], "Groceries"),
+        
         // Shopping
         (["mall", "store", "retail", "mart", "shop", "boutique"], "Shopping"),
-        
-        // Groceries
-        (["grocery", "supermarket", "vegetables", "fruits", "kirana"], "Groceries"),
         
         // Utilities
         (["electricity", "water bill", "gas bill", "sewage", "municipal"], "Utilities"),

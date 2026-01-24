@@ -1,0 +1,138 @@
+{
+  "description": "Test data for Bill/Receipt Parser - Restaurant bills, payment screenshots, receipts",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "BILL-001",
+      "name": "Restaurant Bill with GST",
+      "input": "CAFE COFFEE DAY\nBill No: 12345\nDate: 15/01/2026\n\nCappuccino x2      Rs.300\nSandwich x1        Rs.180\n\nSubtotal:          Rs.480\nCGST (2.5%):       Rs.12\nSGST (2.5%):       Rs.12\n\nGrand Total:       Rs.504.00",
+      "expected": {
+        "amount": 504.00,
+        "biller": "CAFE COFFEE DAY",
+        "category": "Food & Dining",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-002",
+      "name": "PhonePe Payment Screenshot",
+      "input": "Paid to\nSWIGGY\n\n₹356.00\n\nCompleted\n15 Jan 2026, 8:30 PM\n\nUPI Transaction ID\n123456789012",
+      "expected": {
+        "amount": 356.00,
+        "biller": "SWIGGY",
+        "category": "Food & Dining",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-003",
+      "name": "GPay Payment Confirmation",
+      "input": "Payment successful\n\nSent to UBER\n₹245.50\n\n14 January 2026\n12:45 PM\n\nGoogle Pay Transaction ID: GPAY987654321",
+      "expected": {
+        "amount": 245.50,
+        "biller": "UBER",
+        "category": "Transport & Fuel",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-004",
+      "name": "Retail Store Receipt",
+      "input": "RELIANCE DIGITAL\nStore: Bangalore - Koramangala\nReceipt #: RD-2026-00123\nDate: 18/01/2026\n\nItem: Wireless Mouse\nMRP: Rs.1,299.00\nDiscount: Rs.200.00\n\nNet Amount: Rs.1,099.00\nGST (18%): Rs.197.82\n\nTotal: Rs.1,296.82",
+      "expected": {
+        "amount": 1296.82,
+        "biller": "RELIANCE",
+        "category": "Shopping",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-005",
+      "name": "Fuel Station Receipt",
+      "input": "INDIAN OIL CORPORATION\nPetrol Pump: Highway Fuels\n\nVehicle: KA-01-XX-1234\nFuel: Petrol\nQuantity: 20.00 L\nRate: Rs.102.50/L\n\nAmount: Rs.2,050.00\n\nDate: 20-01-2026\nTime: 10:30 AM",
+      "expected": {
+        "amount": 2050.00,
+        "biller": "INDIAN OIL",
+        "category": "Transport & Fuel",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-006",
+      "name": "Pharmacy Bill",
+      "input": "APOLLO PHARMACY\nBill Date: 22/01/2026\n\nDolo 650 x 10      Rs.35.00\nCetrizine x 10     Rs.45.00\nOmeprazole x 10    Rs.120.00\n\nTotal:             Rs.200.00\nRounded:           Rs.200.00",
+      "expected": {
+        "amount": 200.00,
+        "biller": "APOLLO",
+        "category": "Medical & Healthcare",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-007",
+      "name": "Paytm Wallet Transfer",
+      "input": "Money Sent\n\nTo: Amazon Pay\nAmount: ₹1,500\n\nTransaction ID: TXN123456789\nDate: 12 Jan 2026, 3:15 PM\n\nPaid via Paytm Wallet",
+      "expected": {
+        "amount": 1500.00,
+        "biller": "Amazon Pay",
+        "category": "UPI / Petty Cash",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-008",
+      "name": "DMart Grocery Receipt",
+      "input": "DMART READY\nStore: HSR Layout\nBill No: DM-2026-5678\nDate: 16/01/2026\n\nRice 5kg           Rs.350.00\nOil 1L             Rs.180.00\nDal 1kg            Rs.145.00\nVegetables         Rs.220.00\n\nSubtotal:          Rs.895.00\nDiscount:          Rs.45.00\n\nGrand Total:       Rs.850.00",
+      "expected": {
+        "amount": 850.00,
+        "biller": "DMART",
+        "category": "Groceries",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-009",
+      "name": "Movie Ticket Booking",
+      "input": "BOOKMYSHOW\nOrder ID: BMS123456\n\nMovie: Avatar 3\nTheatre: PVR Forum Mall\nDate: 20 Jan 2026\nTime: 7:00 PM\nSeats: H12, H13\n\nTicket Amount: Rs.600.00\nConvenience Fee: Rs.50.00\n\nTotal: Rs.650.00",
+      "expected": {
+        "amount": 650.00,
+        "biller": "BOOKMYSHOW",
+        "category": "Entertainment",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-010",
+      "name": "Electricity Bill Payment",
+      "input": "BESCOM\nPayment Receipt\n\nConsumer No: 1234567890\nBilling Month: December 2025\n\nCurrent Reading: 5678\nPrevious Reading: 5432\nUnits Consumed: 246\n\nEnergy Charges: Rs.1,845.00\nFixed Charges: Rs.100.00\nTaxes: Rs.155.00\n\nTotal Amount: Rs.2,100.00\n\nPaid on: 10-01-2026",
+      "expected": {
+        "amount": 2100.00,
+        "biller": "BESCOM",
+        "category": "Utilities",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-011",
+      "name": "Zomato Order Receipt",
+      "input": "ZOMATO\nOrder #ZMT-789012\n\nFrom: Domino's Pizza\n\nMargherita Pizza    Rs.299\nGarlic Bread        Rs.99\nCoke 500ml          Rs.50\n\nSubtotal:           Rs.448\nDelivery Fee:       Rs.30\nPlatform Fee:       Rs.5\nDiscount:          -Rs.50\n\nTo Pay: Rs.433.00\n\n15/01/2026, 9:15 PM",
+      "expected": {
+        "amount": 433.00,
+        "biller": "ZOMATO",
+        "category": "Food & Dining",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "BILL-012",
+      "name": "Gym Membership",
+      "input": "CULT FIT\nMembership Invoice\n\nMember: John Doe\nPlan: Elite Monthly\nValid: Jan 2026 - Feb 2026\n\nMembership Fee:     Rs.2,000.00\nGST (18%):          Rs.360.00\n\nTotal:              Rs.2,360.00\n\nPaid on 01-01-2026",
+      "expected": {
+        "amount": 2360.00,
+        "biller": "CULT FIT",
+        "category": "Medical & Healthcare",
+        "currency": "INR"
+      }
+    }
+  ]
+}

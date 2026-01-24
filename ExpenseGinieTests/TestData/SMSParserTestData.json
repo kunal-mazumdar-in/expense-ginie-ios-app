@@ -1,0 +1,226 @@
+{
+  "description": "Test data for SMS Parser - Bank transaction SMS messages",
+  "version": "1.0",
+  "testCases": [
+    {
+      "id": "SMS-001",
+      "name": "HDFC Bank UPI Debit",
+      "input": "Your a/c XXXX1234 is debited for Rs.500.00 on 15-01-26. UPI Ref: 123456789012. Info: SWIGGY. Avl Bal: Rs.10,000.00",
+      "expected": {
+        "amount": 500.00,
+        "biller": "SWIGGY",
+        "category": "Food & Dining",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-002",
+      "name": "ICICI Bank Card Transaction",
+      "input": "ICICI Bank Credit Card XX1234 has been used for Rs.1,299.00 at AMAZON on 20-Jan-26. Avl Limit: Rs.50,000",
+      "expected": {
+        "amount": 1299.00,
+        "biller": "AMAZON",
+        "category": "Shopping",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-003",
+      "name": "SBI UPI Transfer",
+      "input": "Dear Customer, Rs.2500.00 debited from A/c XX5678 to VPA uber@axisbank on 12/01/26. UPI Ref: 567890123456. -SBI",
+      "expected": {
+        "amount": 2500.00,
+        "biller": "UBER",
+        "category": "Transport & Fuel",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-004",
+      "name": "Axis Bank POS Transaction",
+      "input": "INR 3,450.50 spent on Axis Bank Card ending 9876 at CROMA ELECTRONICS on 18-01-2026. Not you? Call 1800123456",
+      "expected": {
+        "amount": 3450.50,
+        "biller": "CROMA",
+        "category": "Shopping",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-005",
+      "name": "Netflix Subscription",
+      "input": "Your HDFC Bank Credit Card XX4321 has been charged Rs.649.00 for NETFLIX.COM on 05-Jan-26",
+      "expected": {
+        "amount": 649.00,
+        "biller": "NETFLIX",
+        "category": "OTT",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-006",
+      "name": "Petrol Pump Transaction",
+      "input": "Rs.2000.00 debited from KOTAK A/c XX6789 at HP PETROL PUMP on 22/01/26. Bal: Rs.15,678.90",
+      "expected": {
+        "amount": 2000.00,
+        "biller": "HP PETROL",
+        "category": "Transport & Fuel",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-007",
+      "name": "Zomato Food Order",
+      "input": "Your payment of Rs.356.00 to ZOMATO via UPI is successful. UPI Ref: 112233445566. Date: 10-01-26",
+      "expected": {
+        "amount": 356.00,
+        "biller": "ZOMATO",
+        "category": "Food & Dining",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-008",
+      "name": "Electricity Bill",
+      "input": "Dear Customer, Rs.1,850.00 paid successfully to BESCOM from your HDFC Bank A/c. Ref: ELEC123456. -HDFC Bank",
+      "expected": {
+        "amount": 1850.00,
+        "biller": "BESCOM",
+        "category": "Utilities",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-009",
+      "name": "BigBasket Groceries",
+      "input": "INR 1,234.00 debited from your ICICI Bank A/c XX9999 for BIGBASKET txn on 08-Jan-2026. Call 1800000 if not done by you",
+      "expected": {
+        "amount": 1234.00,
+        "biller": "BIGBASKET",
+        "category": "Groceries",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-010",
+      "name": "PharmEasy Medical",
+      "input": "Transaction of Rs.890.50 at PHARMEASY done using your SBI Debit Card ending 1111 on 25/01/26",
+      "expected": {
+        "amount": 890.50,
+        "biller": "PHARMEASY",
+        "category": "Medical & Healthcare",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-011",
+      "name": "Disney+ Hotstar OTT",
+      "input": "Your A/c XXXX5555 debited Rs.299.00 for HOTSTAR subscription on 01-01-26. Bal Rs.8,500.00 -HDFC Bank",
+      "expected": {
+        "amount": 299.00,
+        "biller": "HOTSTAR",
+        "category": "OTT",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-012",
+      "name": "Airtel Recharge",
+      "input": "Rs.599 paid to AIRTEL from your Paytm Wallet. Txn ID: PAYTM123456. Date: 15-Jan-26",
+      "expected": {
+        "amount": 599.00,
+        "biller": "AIRTEL",
+        "category": "Bills & Recharge",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-013",
+      "name": "Zepto Quick Commerce",
+      "input": "Payment of Rs.445.00 to ZEPTO successful via UPI. Ref: 998877665544. 12/01/2026",
+      "expected": {
+        "amount": 445.00,
+        "biller": "ZEPTO",
+        "category": "Groceries",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-014",
+      "name": "MakeMyTrip Travel",
+      "input": "Your AXIS Bank Card XX7777 used for Rs.12,500.00 at MAKEMYTRIP on 20-Jan-26. Not you? SMS BLOCK to 5676782",
+      "expected": {
+        "amount": 12500.00,
+        "biller": "MAKEMYTRIP",
+        "category": "Travel & Vacation",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-015",
+      "name": "PVR Movies Entertainment",
+      "input": "Rs.780.00 spent at PVR CINEMAS using HDFC Credit Card XX3333 on 18/01/26. Avl limit Rs.45,000",
+      "expected": {
+        "amount": 780.00,
+        "biller": "PVR",
+        "category": "Entertainment",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-016",
+      "name": "Bajaj Finserv EMI",
+      "input": "EMI of Rs.5,000.00 debited from your A/c XX2222 towards BAJAJ FINSERV loan on 05-01-26. -ICICI Bank",
+      "expected": {
+        "amount": 5000.00,
+        "biller": "BAJAJ FINSERV",
+        "category": "Debt & EMI",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-017",
+      "name": "Spotify Subscription",
+      "input": "Your card XX8888 charged Rs.199.00 for SPOTIFY subscription on 01-Jan-2026. -HDFC Bank",
+      "expected": {
+        "amount": 199.00,
+        "biller": "SPOTIFY",
+        "category": "Subscriptions",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-018",
+      "name": "LIC Insurance Premium",
+      "input": "Rs.15,000.00 debited from SBI A/c XX4444 for LIC PREMIUM payment on 10/01/2026. Ref: LICPREM123",
+      "expected": {
+        "amount": 15000.00,
+        "biller": "LIC",
+        "category": "Insurance",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-019",
+      "name": "Rapido Bike Taxi",
+      "input": "Paid Rs.85.00 to RAPIDO via GPay. UPI: 445566778899. 14-01-26",
+      "expected": {
+        "amount": 85.00,
+        "biller": "RAPIDO",
+        "category": "Transport & Fuel",
+        "currency": "INR"
+      }
+    },
+    {
+      "id": "SMS-020",
+      "name": "Udemy Course",
+      "input": "Your card ending 6666 was charged USD 12.99 at UDEMY.COM on 08-Jan-26. INR equivalent: Rs.1,080.00",
+      "expected": {
+        "amount": 1080.00,
+        "biller": "UDEMY",
+        "category": "Education & Learning",
+        "currency": "INR"
+      }
+    }
+  ]
+}
