@@ -58,6 +58,9 @@ final class BillerMapping {
         // Entertainment
         (["movie", "cinema", "theatre", "concert", "event", "game", "amusement"], "Entertainment"),
         
+        // OTT (Streaming Platforms)
+        (["streaming", "ott", "watch party", "binge"], "OTT"),
+        
         // Education & Learning
         (["school", "college", "university", "tuition", "coaching", "education", "course"], "Education & Learning"),
         
@@ -217,18 +220,10 @@ final class BillerMapping {
         ("LISCIOUS", "Groceries"),
         ("FRESHMENU", "Groceries"),
 
-        // Subscriptions
-        ("NETFLIX", "Subscriptions"),
+        // Subscriptions (Non-OTT: Music, Productivity, etc.)
         ("SPOTIFY", "Subscriptions"),
-        ("APPLE", "Subscriptions"),
+        ("APPLE MUSIC", "Subscriptions"),
         ("APPLE SERVICES", "Subscriptions"),
-        ("HOTSTAR", "Subscriptions"),
-        ("PRIME VIDEO", "Subscriptions"),
-        ("AMAZON PRIME", "Subscriptions"),
-        ("YOUTUBE", "Subscriptions"),
-        ("DISNEY", "Subscriptions"),
-        ("SONY LIV", "Subscriptions"),
-        ("ZEE5", "Subscriptions"),
         ("AUDIBLE", "Subscriptions"),
         ("LINKEDIN", "Subscriptions"),
         ("OPENAI", "Subscriptions"),
@@ -240,9 +235,10 @@ final class BillerMapping {
         ("JIOSAAVN", "Subscriptions"),
         ("GAANA", "Subscriptions"),
         ("WYNK MUSIC", "Subscriptions"),
-        ("DISCOVERY+", "Subscriptions"),
         ("TATA PLAY", "Subscriptions"),
         ("AIRTEL XSTREAM", "Subscriptions"),
+        ("YOUTUBE MUSIC", "Subscriptions"),
+        ("AMAZON MUSIC", "Subscriptions"),
 
         // Bills & Recharge
         ("AIRTEL", "Bills & Recharge"),
@@ -367,6 +363,62 @@ final class BillerMapping {
         ("CARNIVAL CINEMAS", "Entertainment"),
         ("EVENTBRITE", "Entertainment"),
         ("PAYTM INSIDER", "Entertainment"),
+
+        // OTT (Streaming Platforms)
+        // Global Giants
+        ("NETFLIX", "OTT"),
+        ("AMAZON PRIME VIDEO", "OTT"),
+        ("PRIME VIDEO", "OTT"),
+        ("DISNEY+", "OTT"),
+        ("DISNEY PLUS", "OTT"),
+        ("MAX", "OTT"),
+        ("HBO MAX", "OTT"),
+        ("YOUTUBE PREMIUM", "OTT"),
+        ("APPLE TV+", "OTT"),
+        ("APPLE TV PLUS", "OTT"),
+        
+        // Major US & International Services
+        ("HULU", "OTT"),
+        ("PEACOCK", "OTT"),
+        ("PARAMOUNT+", "OTT"),
+        ("PARAMOUNT PLUS", "OTT"),
+        ("DISCOVERY+", "OTT"),
+        ("DISCOVERY PLUS", "OTT"),
+        ("STAR+", "OTT"),
+        ("RAKUTEN TV", "OTT"),
+        ("VIAPLAY", "OTT"),
+        
+        // Indian Market Leaders
+        ("JIOHOTSTAR", "OTT"),
+        ("JIO HOTSTAR", "OTT"),
+        ("HOTSTAR", "OTT"),
+        ("ZEE5", "OTT"),
+        ("SONYLIV", "OTT"),
+        ("SONY LIV", "OTT"),
+        ("MX PLAYER", "OTT"),
+        ("ALTBALAJI", "OTT"),
+        ("ALT BALAJI", "OTT"),
+        ("AHA", "OTT"),
+        ("SUN NXT", "OTT"),
+        ("SUNNXT", "OTT"),
+        ("HOICHOI", "OTT"),
+        
+        // Anime & Niche
+        ("CRUNCHYROLL", "OTT"),
+        ("HIDIVE", "OTT"),
+        ("MUBI", "OTT"),
+        ("CURIOSITYSTREAM", "OTT"),
+        ("CURIOSITY STREAM", "OTT"),
+        ("SHUDDER", "OTT"),
+        ("BRITBOX", "OTT"),
+        
+        // Free Ad-Supported (FAST) & AVOD
+        ("TUBI", "OTT"),
+        ("PLUTO TV", "OTT"),
+        ("THE ROKU CHANNEL", "OTT"),
+        ("ROKU CHANNEL", "OTT"),
+        ("FREEVEE", "OTT"),
+        ("VUDU", "OTT"),
 
         // Investments
         ("ZERODHA", "Investments"),

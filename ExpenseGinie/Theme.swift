@@ -13,6 +13,7 @@ struct AppTheme {
         "Shopping",
         "Medical & Healthcare",
         "Entertainment",
+        "OTT",
         "Subscriptions",
         "Bills & Recharge",
         "Insurance",
@@ -62,6 +63,7 @@ struct AppTheme {
         "Shopping": .purple,
         "Medical & Healthcare": .red,
         "Entertainment": .pink,
+        "OTT": Color(red: 0.9, green: 0.1, blue: 0.1),  // Netflix red
         "Subscriptions": .cyan,
         "Bills & Recharge": .indigo,
         "Insurance": .teal,
@@ -98,6 +100,7 @@ struct AppTheme {
         case "Shopping": return "bag.fill"
         case "Medical & Healthcare": return "cross.case.fill"
         case "Entertainment": return "tv.fill"
+        case "OTT": return "play.tv.fill"
         case "Subscriptions": return "play.rectangle.fill"
         case "Bills & Recharge": return "phone.fill"
         case "Insurance": return "shield.fill"

@@ -26,6 +26,7 @@ struct ExpenseCategoryEntity: AppEntity {
         ExpenseCategoryEntity(id: "shopping", name: "Shopping", fullName: "Shopping"),
         ExpenseCategoryEntity(id: "medical", name: "Medical", fullName: "Medical & Healthcare"),
         ExpenseCategoryEntity(id: "entertainment", name: "Entertainment", fullName: "Entertainment"),
+        ExpenseCategoryEntity(id: "ott", name: "OTT", fullName: "OTT"),
         ExpenseCategoryEntity(id: "subscriptions", name: "Subscriptions", fullName: "Subscriptions"),
         ExpenseCategoryEntity(id: "bills", name: "Bills", fullName: "Bills & Recharge"),
         ExpenseCategoryEntity(id: "insurance", name: "Insurance", fullName: "Insurance"),
@@ -107,11 +108,28 @@ struct AddExpenseIntent: AppIntent {
         "shopping": "Shopping",
         
         // Entertainment
-        "netflix": "Entertainment",
-        "spotify": "Entertainment",
-        "prime": "Entertainment",
         "movie": "Entertainment",
         "entertainment": "Entertainment",
+        "cinema": "Entertainment",
+        "concert": "Entertainment",
+        
+        // OTT (Streaming Platforms)
+        "netflix": "OTT",
+        "prime video": "OTT",
+        "amazon prime": "OTT",
+        "disney": "OTT",
+        "hotstar": "OTT",
+        "jiohotstar": "OTT",
+        "hulu": "OTT",
+        "hbo": "OTT",
+        "max": "OTT",
+        "zee5": "OTT",
+        "sonyliv": "OTT",
+        "youtube premium": "OTT",
+        "apple tv": "OTT",
+        "crunchyroll": "OTT",
+        "ott": "OTT",
+        "streaming": "OTT",
         
         // Groceries
         "bigbasket": "Groceries",
